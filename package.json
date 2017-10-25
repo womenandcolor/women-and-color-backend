@@ -38,5 +38,8 @@
     "url": "git://github.com/sharon/wac.git"
   },
   "author": "sharon",
-  "license": ""
+  "license": "",
+  "engines": {
+    "node": "6.9.2"
+  }
 }
