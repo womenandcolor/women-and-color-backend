@@ -52,7 +52,7 @@ module.exports.policies = {
     remove: 'isAuthenticated',
   },
   CityController: {
-    find: 'isAuthenticated',
+    find: true,
     populate: 'isAuthenticated',
     add: 'isAuthenticated',
     remove: 'isAuthenticated',
@@ -61,7 +61,7 @@ module.exports.policies = {
     destroy: ['isAuthenticated', 'isAdmin'],
   },
   TopicController: {
-    find: 'isAuthenticated',
+    find: true,
     create: 'isAuthenticated',
     populate: 'isAuthenticated',
     add: 'isAuthenticated',
