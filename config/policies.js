@@ -42,6 +42,7 @@ module.exports.policies = {
     remove: 'isAuthenticated',
   },
   ProfileController: {
+    search: true,
     find: true,
     findOne: true,
     populate: true,

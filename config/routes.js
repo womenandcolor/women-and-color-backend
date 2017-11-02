@@ -47,5 +47,6 @@ module.exports.routes = {
   ***************************************************************************/
 
   'post /api/v1/login': 'AuthController.login',
-  'get /api/v1/logout': 'AuthController.logout'
+  'get /api/v1/logout': 'AuthController.logout',
+  'get /api/v1/profiles/search': 'ProfileController.search'
 };
