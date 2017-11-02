@@ -6,6 +6,14 @@
  */
 
 module.exports = {
-	
+	find: (req, res) => {
+    Profile
+      .find()
+      .populate('topics')
+      .exec((err, profiles) => {
+      if (err) { return res.badRequest(err) }
+      return res.send(profiles)
+    })
+  }
 };
 

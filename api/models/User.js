@@ -16,9 +16,6 @@ module.exports = {
     profile: {
       collection: 'profile',
       via: 'user'
-    },
-    city: {
-      model: 'city'
     }
   },
   beforeCreate: (user, next) => {
@@ -29,7 +26,7 @@ module.exports = {
         user.password = hash;
         next();
       }
-  });
+    });
   }
 };
 

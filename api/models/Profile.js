@@ -33,6 +33,9 @@ module.exports = {
       type: 'string',
       required: true
     },
+    description: {
+      type: 'text'
+    },
     company: {
       type: 'string',
       required: true
@@ -55,6 +58,9 @@ module.exports = {
       collection: 'topic',
       via: 'profiles',
       dominant: true
+    },
+    city: {
+      model: 'city'
     }
   }
 };

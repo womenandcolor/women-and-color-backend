@@ -17,8 +17,8 @@ module.exports = {
     country: {
       type: 'string'
     },
-    users: {
-      collection: 'user',
+    profiles: {
+      collection: 'profile',
       via: 'city'
     }
   }
