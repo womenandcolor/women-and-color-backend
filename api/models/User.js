@@ -13,6 +13,10 @@ module.exports = {
       minLength: 6,
       required: true
     },
+    isAdmin: {
+      type: 'boolean',
+      default: false
+    },
     profile: {
       collection: 'profile',
       via: 'user'
