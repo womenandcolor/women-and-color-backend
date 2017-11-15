@@ -32,7 +32,7 @@ module.exports.policies = {
     logout: 'isAuthenticated'
   },
   UserController: {
-    find: ['isAuthenticated', 'canModifyUser'],
+    find: true,
     findOne: ['isAuthenticated', 'canModifyUser'],
     populate: ['isAuthenticated', 'canModifyUser'],
     create: true,

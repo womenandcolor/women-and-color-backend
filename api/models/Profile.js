@@ -18,27 +18,22 @@ module.exports = {
     },
     woman: {
       type: 'boolean',
-      required: true
     },
     poc: {
       type: 'boolean',
-      required: true
     },
     pronouns: {
       enum: ['she', 'he', 'they'],
       type: 'string',
-      required: true
     },
     position: {
       type: 'string',
-      required: true
     },
     description: {
       type: 'text'
     },
     company: {
       type: 'string',
-      required: true
     },
     twitter: {
       type: 'string'
