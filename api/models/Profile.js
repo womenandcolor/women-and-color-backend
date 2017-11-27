@@ -32,7 +32,7 @@ module.exports = {
     description: {
       type: 'text'
     },
-    company: {
+    organization: {
       type: 'string',
     },
     twitter: {
@@ -42,6 +42,9 @@ module.exports = {
       type: 'string'
     },
     website: {
+      type: 'string'
+    },
+    image: {
       type: 'string'
     },
     user: {

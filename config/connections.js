@@ -76,12 +76,14 @@ module.exports.connections = {
   ***************************************************************************/
   local_postgres: {
     adapter: 'sails-postgresql',
-    host: 'localhost'
+    host: 'localhost',
+    user: 'sharon',
+    database: 'wac_local'
   },
 
   production_db: {
     adapter: 'sails-postgresql',
-    url: process.env.DATABASE_URLg
+    url: process.env.DATABASE_URL
   }
 
 
