@@ -5,11 +5,10 @@ We're building a RESTful API for the Women and Color project, which provides con
 ### Tech:
 - Node.js
 - Express
-- Sqlite
+- Sails.js
+- Postgresql
 
 ### Get started
 - pull the repo
 - install packages: `npm install`
-- install sequelize-cli and nodemon globally: `npm install -g sequelize-cli nodemon`
-- run database migrations: `sequelize db:migrate`
-- start the server locally: `DEBUG=women-and-color:* npm run devstart`
+- start the server: `sails lift`
