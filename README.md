@@ -21,13 +21,13 @@ The base url for the API is `/api/v1`.
 
 There are currently four models: User, Profile, Topic, and City.
 
-- *User*: `/users`
+- **User**: `/users`
   - Exclusively for managing the user account and contacting them
   - Fields:
     - `name` (string)
     - `password` (string)
 
-- *Profile* `/profiles`
+- **Profile** `/profiles`
   - The main representation of speakers.
   - Fields:
     - `firstName` (string)
@@ -41,13 +41,13 @@ There are currently four models: User, Profile, Topic, and City.
     - `twitter` (string)
     - `linkedin` (string)
     - `website` (string)
-    - `image` (string), ~file upload not implemented yet~
-- *City* `/cities`
+    - `image` (string), *file upload not implemented yet*
+- **City** `/cities`
   - Fields:
     - `name` (string)
     - `province/state` (string)
     - `country` (string)
-- *Topic* `/topics`
+- **Topic** `/topics`
   - Topics that the speakers are available to speak about
   - Needs to be reorganized into a taxonomy that supports topic categories
   - Fields:
