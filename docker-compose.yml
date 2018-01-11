@@ -1,25 +1,25 @@
 version: "3"
 services:
+  postgres:
+    image: "postgres:9"
+    networks:
+      - web
+    env_file:
+      - env/dev.env
+
   app:
     build: .
     labels:
       app: women-and-color-backend
     volumes:
       - .:/app
-      - node_modules:/app/node_modules
+      - /app/node_modules/
     ports:
       - "1337:1337"
     networks:
       - web
     depends_on:
       - postgres
-    env_file:
-      - env/dev.env
-
-  postgres:
-    image: "postgres:9"
-    networks:
-      - web
     env_file:
       - env/dev.env
 
