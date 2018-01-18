@@ -9,9 +9,14 @@ We're building a RESTful API for the Women and Color project, which is a communi
 - Postgresql
 
 ## Get started
+### From local
 - clone the repo: `git clone git@github.com:CivicTechTO/women-and-color-backend.git`
 - install packages: `npm install`
 - start the server: `sails lift`
+
+### With Docker
+- Install Docker and docker-compose
+- Run `docker-compose up`, sometimes the web app comes up before postgres configuration has ended which can cause a failure, if this happens, run `docker-compose up` again.
 
 ## API Documentation
 
