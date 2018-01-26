@@ -1,10 +1,10 @@
-FROM node:9.3.0
+FROM python:3-slim
 MAINTAINER Mark Gituma <mark.gituma@gmail.com>
 
 ENV PROJECT_ROOT /app
 WORKDIR $PROJECT_ROOT
-COPY package.json package.json
-RUN npm install
+
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
 COPY . .
-EXPOSE 1337
-CMD [ "npm", "start" ]
+CMD python manage.py runserver 0.0.0.0:8000
