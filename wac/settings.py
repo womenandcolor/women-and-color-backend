@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     # App
-    'users'
+    'wac.apps.account'
 ]
 
 MIDDLEWARE = [
