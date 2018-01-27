@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
     # App
+    'wac.apps.core',
     'wac.apps.account'
 ]
 
