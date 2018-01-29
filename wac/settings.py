@@ -43,7 +43,8 @@ INSTALLED_APPS = [
 
     # App
     'wac.apps.core',
-    'wac.apps.account'
+    'wac.apps.account',
+    'wac.apps.frontend'
 ]
 
 MIDDLEWARE = [
