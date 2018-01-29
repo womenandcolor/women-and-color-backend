@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 
+# App
+from wac.apps.core.models import Location, Topic
 
 class Profile(models.Model):
     """
@@ -85,3 +87,35 @@ class Profile(models.Model):
 
     def __unicode__(self):
         return self.display_name()
+
+
+class ProfileLocation(models.Model):
+    profile = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE
+    )
+
+    location = models.ForeignKey(
+        Location,
+        on_delete=models.CASCADE
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+
+class ProfileTopic(models.Model):
+    profile = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE
+    )
+
+    topic = models.ForeignKey(
+        Location,
+        on_delete=models.CASCADE
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
