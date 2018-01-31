@@ -1,5 +1,6 @@
 # Django
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 
 # App
 from wac.apps.account.models import Profile
@@ -31,6 +32,10 @@ class UserSerializer(serializers.ModelSerializer):
 
         user.save()
 
+        auth_user = authenticate(username=user.username, password=user.password)
+
+
+        login(self.context.get('request'), auth_user)
         return user
 
     class Meta:
