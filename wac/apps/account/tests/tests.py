@@ -1,3 +1,6 @@
+# App
+from wac.apps.account.models import Profile
+
 # Rest Framework
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
@@ -26,3 +29,9 @@ class RegistrationTestCase(APITestCase):
 
         self.assertEqual(response.data.get('id'), 1)
         self.assertEqual(response.data.get('email'), data['email'])
+
+        self.assertTrue(Profile.objects.exists())
+
+        profile = Profile.objects.first()
+        self.assertEqual(profile.user.email, response.data.get('email'))
+
