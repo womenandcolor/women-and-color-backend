@@ -1,3 +1,6 @@
+# Django
+from django.contrib.auth.models import User
+
 # App
 from wac.apps.account.models import Profile
 
@@ -22,6 +25,8 @@ class RegistrationTestCase(APITestCase):
 
     def test_post_user_with_good_data(self):
         data = {
+            'firstName': 'FirstName',
+            'lastName': 'LastName',
             'email': 'test@test.com',
             'password': PASSWORD
         }
@@ -30,7 +35,12 @@ class RegistrationTestCase(APITestCase):
         self.assertEqual(response.data.get('id'), 1)
         self.assertEqual(response.data.get('email'), data['email'])
 
-        self.assertTrue(Profile.objects.exists())
+        user = User.objects.first()
+        self.assertEqual(response.data.get('id'), user.id)
+        self.assertEqual(response.data.get('email'), user.email)
+
+        self.assertEqual(data.get('firstName'), user.first_name)
+        self.assertEqual(data.get('lastName'), user.last_name)
 
         profile = Profile.objects.first()
         self.assertEqual(profile.user.email, response.data.get('email'))
