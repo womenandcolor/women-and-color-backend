@@ -27,11 +27,14 @@ class UserSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         data = request.data
 
-        if data.get('firstName'):
-            user.first_name = data.get('firstName')
+        profile = data.get('profile')
 
-        if data.get('lastName'):
-            user.last_name = data.get('lastName')
+        if profile:
+            if profile.get('firstName'):
+                user.first_name = profile.get('firstName')
+
+            if profile.get('lastName'):
+                user.last_name = profile.get('lastName')
 
         user.save()
 
