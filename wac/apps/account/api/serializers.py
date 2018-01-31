@@ -24,18 +24,20 @@ class UserSerializer(serializers.ModelSerializer):
             validated_data['password']
         )
 
-        if validated_data.get('first_name'):
-            user.first_name = validated_data.get('first_name')
+        request = self.context.get('request')
+        data = request.data
 
-        if validated_data.get('last_name'):
-            user.last_name = validated_data.get('last_name')
+        if data.get('firstName'):
+            user.first_name = data.get('firstName')
+
+        if data.get('lastName'):
+            user.last_name = data.get('lastName')
 
         user.save()
 
-        auth_user = authenticate(username=user.username, password=user.password)
+        auth_user = authenticate(validated_data['email'], password=validated_data['password'])
 
-
-        login(self.context.get('request'), auth_user)
+        # login(self.context.get('request'), auth_user)
         return user
 
     class Meta:
@@ -47,3 +49,9 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = '__all__'
+
+    def to_representation(self, instance):
+        data = super(ProfileSerializer, self).to_representation(instance)
+        data['firstName'] = instance.user.first_name
+        data['lastName'] = instance.user.last_name
+        return data
