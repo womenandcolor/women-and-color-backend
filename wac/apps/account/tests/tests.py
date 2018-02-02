@@ -25,10 +25,12 @@ class RegistrationTestCase(APITestCase):
 
     def test_post_user_with_good_data(self):
         data = {
-            'firstName': 'FirstName',
-            'lastName': 'LastName',
             'email': 'test@test.com',
-            'password': PASSWORD
+            'password': PASSWORD,
+            'profile': {
+                'firstName': 'FirstName',
+                'lastName': 'LastName',
+            }
         }
         response = self.client.post(self.user_endpoint, data=data, format='json')
 
@@ -39,8 +41,8 @@ class RegistrationTestCase(APITestCase):
         self.assertEqual(response.data.get('id'), user.id)
         self.assertEqual(response.data.get('email'), user.email)
 
-        self.assertEqual(data.get('firstName'), user.first_name)
-        self.assertEqual(data.get('lastName'), user.last_name)
+        self.assertEqual(data['profile']['firstName'], user.first_name)
+        self.assertEqual(data['profile']['lastName'], user.last_name)
 
         profile = Profile.objects.first()
         self.assertEqual(profile.user.email, response.data.get('email'))
