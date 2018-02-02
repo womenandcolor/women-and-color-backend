@@ -6,5 +6,5 @@ from rest_framework import routers
 
 
 router = routers.SimpleRouter()
-router.register(r'users', UserViewSet)
-router.register(r'profiles', ProfileViewSet)
+router.register(r'users', UserViewSet, base_name='user')
+router.register(r'profiles', ProfileViewSet, base_name='profile')
