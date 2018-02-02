@@ -9,13 +9,13 @@ services:
 
   app:
     build: .
+    command: python manage.py runserver 0.0.0.0:8000
     labels:
-      app: women-and-color-backend
+      app: wac-backend
     volumes:
       - .:/app
-      - /app/node_modules/
     ports:
-      - "1337:1337"
+      - "8000:8000"
     networks:
       - web
     depends_on:

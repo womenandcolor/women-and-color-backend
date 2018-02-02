@@ -116,3 +116,5 @@ npm-debug.log
 nbproject
 .idea
 .node_history
+*/__pycache__/*
+__pycache__/
