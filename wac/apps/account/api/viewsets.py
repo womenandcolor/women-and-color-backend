@@ -29,4 +29,4 @@ class ProfileViewSet(viewsets.ModelViewSet):
     http_method_names = ['get', 'put']
 
     def get_queryset(self):
-        return Profile.objects.all()
+        return Profile.objects.all().order_by("-pk")
