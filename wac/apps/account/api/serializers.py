@@ -10,7 +10,23 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
 
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        data = super(ProfileSerializer, self).to_representation(instance)
+        data['first_name'] = instance.user.first_name
+        data['last_name'] = instance.user.last_name
+        return data
+
+
 class UserSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer(
+        read_only=True
+    )
+
     email = serializers.EmailField(
         required=True,
         validators=[UniqueValidator(queryset=User.objects.all())]
@@ -38,23 +54,13 @@ class UserSerializer(serializers.ModelSerializer):
 
         user.save()
 
-        auth_user = authenticate(validated_data['email'], password=validated_data['password'])
-
-        # login(self.context.get('request'), auth_user)
+        auth_user = authenticate(
+            username=validated_data['email'],
+            password=validated_data['password']
+        )
+        login(self.context.get('request'), auth_user)
         return user
 
     class Meta:
         model = User
-        fields = ('id', 'email', 'password')
-
-
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = '__all__'
-
-    def to_representation(self, instance):
-        data = super(ProfileSerializer, self).to_representation(instance)
-        data['firstName'] = instance.user.first_name
-        data['lastName'] = instance.user.last_name
-        return data
+        fields = ('id', 'email', 'password', 'profile')
