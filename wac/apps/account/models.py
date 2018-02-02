@@ -8,9 +8,9 @@ class Profile(models.Model):
     """
     Extends from the user model
     """
-    HE = 'HE'
-    SHE = 'SHE'
-    THEY = 'THEY'
+    HE = 'he'
+    SHE = 'she'
+    THEY = 'they'
     PRONOUNS_CHOICE = (
         (HE, HE),
         (SHE, SHE),
