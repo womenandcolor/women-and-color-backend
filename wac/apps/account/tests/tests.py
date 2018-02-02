@@ -27,10 +27,8 @@ class RegistrationTestCase(APITestCase):
         data = {
             'email': 'test@test.com',
             'password': PASSWORD,
-            'profile': {
-                'firstName': 'FirstName',
-                'lastName': 'LastName',
-            }
+            'first_name': 'FirstName',
+            'last_name': 'LastName',
         }
         response = self.client.post(self.user_endpoint, data=data, format='json')
 
@@ -41,8 +39,8 @@ class RegistrationTestCase(APITestCase):
         self.assertEqual(response.data.get('id'), user.id)
         self.assertEqual(response.data.get('email'), user.email)
 
-        self.assertEqual(data['profile']['firstName'], user.first_name)
-        self.assertEqual(data['profile']['lastName'], user.last_name)
+        self.assertEqual(data['first_name'], user.first_name)
+        self.assertEqual(data['last_name'], user.last_name)
 
         profile = Profile.objects.first()
         self.assertEqual(profile.user.email, response.data.get('email'))
