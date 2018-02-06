@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # App
-from wac.apps.account.models import (
+from wac.apps.accounts.models import (
     Profile
 )
 

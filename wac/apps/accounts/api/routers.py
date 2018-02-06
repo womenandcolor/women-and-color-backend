@@ -1,5 +1,5 @@
 # App
-from wac.apps.account.api.viewsets import UserViewSet, ProfileViewSet
+from wac.apps.accounts.api.viewsets import UserViewSet, ProfileViewSet
 
 # Rest Framework
 from rest_framework import routers
