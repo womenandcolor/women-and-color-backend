@@ -1,0 +1,75 @@
+<!doctype html>
+{% load  i18n staticfiles static %}
+
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+<meta name="description" content="{% block meta_description %}{% endblock %}">
+<title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %} {% if settings.SITE_TAGLINE %}:: {{ settings.SITE_TAGLINE }} {% endif %}</title>
+<link rel="shortcut icon" href="{% static "img/favicon.ico" %}">
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" media="screen,projection">
+<link href="{% static 'css/style.css'%}" type="text/css" rel="stylesheet" media="screen,projection" />
+
+<script
+  src="http://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script src="{% static 'js/init.js'%}"></script>
+{% block extra_js %}{% endblock %}
+
+<!--[if lt IE 9]>
+<script src="{% static "js/html5shiv.js" %}"></script>
+<script src="{% static "js/respond.min.js" %}"></script>
+<![endif]-->
+{% block extra_head %}{% endblock %}
+<body>
+    <!-- Header navigation menu -->
+      <div class="container">
+          <div class="row" style="margin-top:14px;">
+              <a class='dropdown-button btn' href='#' data-activates='myMenu'>Menu</a>
+              <ul id='myMenu' class='dropdown-content'>
+                <li><a href="{% url 'frontend:home' %}">Home</a></li>
+                <div class="divider"></div>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'account_profile' %}">Account</a></li>
+                <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
+                <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+                {% else %}
+                <li><a href="{% url 'account_login' %}">Sign In</a></li>
+                <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+                {% endif %}
+            </ul>
+          </div>
+      </div>
+      <div class="divider"></div>
+    <!-- Header navigation menu end -->
+    <div class="container">
+        <div class="row">
+            {% block body %}
+                {% if messages %}
+                <div>
+                  <strong>Messages:</strong>
+                  <ul>
+                {% for message in messages %}
+                <li>{{message}}</li>
+                {% endfor %}
+                  </ul>
+                </div>
+                {% endif %}
+
+                {% block content %}
+                {% endblock %}
+            {% endblock %}
+
+            {% block extra_body %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>
