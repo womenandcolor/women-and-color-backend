@@ -16,6 +16,10 @@ We're building a RESTful API for the Women and Color project, which is a communi
 - Seed the database: `python manage.py init_project`
 - The server should now be running on `localhost:8000`
 
+### Start the frontend
+- You won't see anything on `localhost:8000` until you start the frontend server
+- Go to the [frontend repo][code-frontend] to clone the repo. Follow the setup instructions there, then refresh the browser.
+
 ## API Documentation
 
 The base url for the API is `/api/v1`.
@@ -57,3 +61,5 @@ There are currently four models: User, Profile, Topic, and City.
     - `name` (string)
 - The User, City, and Topic models are all associated with the Profile.
 
+<!-- Links -->
+   [code-frontend]: https://github.com/CivicTechTO/women-and-color-frontend
