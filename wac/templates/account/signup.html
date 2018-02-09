@@ -40,12 +40,19 @@
               {% if redirect_field_value %}
               <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
               {% endif %}
-              <button type="submit" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">send</i></button>
-            </form>
 
-            <div class="row">
-              <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
-            </div>
+              <div class='row form-group'>
+                <div class='col m12'>
+                  <button type="submit" class="btn-large">send</button>
+                </div>
+              </div>
+
+              <div class='row form-group'>
+                <div class='col m12'>
+                  <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+                </div>
+              </div>
+            </form>
         </div>
     </div>
 </div>
