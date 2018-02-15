@@ -1,0 +1,67 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block meta_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<div class="col s12 m8 offset-m2">
+  <div class="card hoverable">
+      <div class="card-content">
+
+        <p>{% blocktrans %}If you have not created an account yet, then please
+        <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+
+        <div id="loginform">
+          <h4 class="flow-text">Login form</h4>
+          <form class="login" method="POST" action="{% url 'account_login' %}">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+              <label class='col-md-12 alert alert-danger' for="{{ field.html_name }}">
+                  {{ form.non_field_errors }}
+              </label>
+            {% endif %}
+
+            {% for field in form %}
+                <div class='row form-group {% if field.errors %}has-error{% endif %}'>
+                    {% if field.errors %}
+                        <span class='col-m12' for="{{ field.html_name }}" style="color:red;">
+                            {{ field.errors }}
+                        </span>
+                    {% endif %}
+
+                    <div class='col m12'>
+                        {{ field.label }}
+                    </div>
+
+                    <div class='col m12'>
+                        {{ field }}
+                    </div>
+                </div>
+            {% endfor %}
+
+
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+
+            <div class='row form-group'>
+              <div class="col s6 m6">
+                <p>
+                  <a href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+                </p>
+              </div>
+
+              <div class="col s6 m6">
+                <button type="submit" class="btn-large" title="Confirm login" style="float:right;">send</a></button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+{% endblock %}

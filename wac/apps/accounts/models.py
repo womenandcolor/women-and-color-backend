@@ -75,6 +75,13 @@ class Profile(models.Model):
         blank=True
     )
 
+    page = models.CharField(
+        max_length=25,
+        null=True,
+        blank=True,
+        default='registration'
+    )
+
     created_at = models.DateTimeField(
         auto_now_add=True
     )

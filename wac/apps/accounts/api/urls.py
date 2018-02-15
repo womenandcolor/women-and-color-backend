@@ -1,7 +1,7 @@
 # App
-from wac.apps.account.api.routers import router
+from wac.apps.accounts.api.routers import router
 
 # from django.conf.urls import url, include
 
-app_name="account"
+app_name="accounts"
 urlpatterns = router.urls

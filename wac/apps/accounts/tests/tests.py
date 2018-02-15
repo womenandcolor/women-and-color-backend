@@ -2,7 +2,7 @@
 from django.contrib.auth.models import User
 
 # App
-from wac.apps.account.models import Profile
+from wac.apps.accounts.models import Profile
 
 # Rest Framework
 from rest_framework.reverse import reverse

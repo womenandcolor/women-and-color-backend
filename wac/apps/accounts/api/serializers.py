@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 
 # App
-from wac.apps.account.models import Profile
+from wac.apps.accounts.models import Profile
 
 # Rest framework
 from rest_framework import serializers
