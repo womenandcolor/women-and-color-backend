@@ -1,0 +1,29 @@
+.auth-form {
+  margin: 0 auto;
+  border: 1px solid var(--color-grey-light);
+  background-color: var(--color-inverted-light);
+  border-radius: 10px;
+  max-width: 500px;
+}
+
+.login-link {
+  text-align: center;
+}
+
+.input-label {
+  font-weight: var(--font-weight-regular);
+}
+
+.auth-form .input-field input[type=text]:focus {
+  border-bottom: 1px solid var(  --color-primary);
+  box-shadow: 0 1px 0 0 var(  --color-primary);
+}
+
+.auth-form .input-field input[type=email]:focus {
+  border-bottom: 1px solid var(  --color-primary);
+  box-shadow: 0 1px 0 0 var(  --color-primary);
+}
+.auth-form .input-field input[type=password]:focus {
+  border-bottom: 1px solid var(  --color-primary);
+  box-shadow: 0 1px 0 0 var(  --color-primary);
+}

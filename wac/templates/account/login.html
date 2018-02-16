@@ -6,14 +6,10 @@
 
 {% block content %}
 <div class="col s12 m8 offset-m2">
-  <div class="card hoverable">
+  <div class="card hoverable auth-form">
       <div class="card-content">
-
-        <p>{% blocktrans %}If you have not created an account yet, then please
-        <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
-
         <div id="loginform">
-          <h4 class="flow-text">Login form</h4>
+          <h1 class="flow-text">Login form</h1>
           <form class="login" method="POST" action="{% url 'account_login' %}">
             {% csrf_token %}
 
@@ -31,11 +27,11 @@
                         </span>
                     {% endif %}
 
-                    <div class='col m12'>
+                    <div class='col m12 input-label'>
                         {{ field.label }}
                     </div>
 
-                    <div class='col m12'>
+                    <div class='col m12 input-field'>
                         {{ field }}
                     </div>
                 </div>
@@ -54,14 +50,18 @@
               </div>
 
               <div class="col s6 m6">
-                <button type="submit" class="btn-large" title="Confirm login" style="float:right;">send</a></button>
+                <button type="submit" class="button button-primary indigo darken-4" title="Confirm login" style="float:right;">Submit</a></button>
               </div>
             </div>
           </form>
         </div>
       </div>
     </div>
-</div>
 
+    <div class='centeredContainer'>
+      <p>{% blocktrans %}If you have not created an account yet, then please
+        <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+    </div>
+</div>
 
 {% endblock %}
