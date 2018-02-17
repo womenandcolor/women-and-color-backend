@@ -22,6 +22,18 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
     )
 
+    first_name = models.CharField(
+        max_length=250,
+        null=True,
+        blank=True
+    )
+
+    last_name = models.CharField(
+        max_length=250,
+        null=True,
+        blank=True
+    )
+
     woman = models.NullBooleanField(
         null=True,
         blank=True
@@ -87,7 +99,13 @@ class Profile(models.Model):
     )
 
     def display_name(self):
-        return u"%s %s".strip() % (self.user.first_name, self.user.last_name)
+        first_name = self.first_name
+        last_name = self.last_name
+
+        if first_name and last_name:
+            return u"%s %s".strip() % (first_name, last_name)
+
+        return None
 
     def __str__(self):
         return self.display_name()
