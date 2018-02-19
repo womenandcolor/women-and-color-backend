@@ -22,6 +22,13 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
     )
 
+    location = models.ForeignKey(
+        Location,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
     first_name = models.CharField(
         max_length=250,
         null=True,
