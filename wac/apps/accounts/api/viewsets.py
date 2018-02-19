@@ -4,12 +4,14 @@ from django.contrib.auth.models import User
 # App
 from wac.apps.accounts.api.serializers import (
     UserSerializer,
-    ProfileSerializer
+    ProfileSerializer,
+    ImageSerializer
 )
-from wac.apps.accounts.models import (Profile, ProfileLocation)
+from wac.apps.accounts.models import (Profile, ProfileLocation, ImageUpload)
 
 # Rest Framework
 from rest_framework import viewsets
+from rest_framework.parsers import FormParser, MultiPartParser
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -45,3 +47,15 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
 
         return queryset
+
+
+class ImageUploadViewSet(viewsets.ModelViewSet):
+
+    queryset = ImageUpload.objects.all()
+    serializer_class = ImageSerializer
+    parser_classes = (MultiPartParser, FormParser,)
+
+    def perform_create(self, serializer):
+        profile = Profile.objects.get(pk=int(self.request.data.get('profile')))
+        file = self.request.data.get('file')
+        serializer.save(profile=profile, file=file)
