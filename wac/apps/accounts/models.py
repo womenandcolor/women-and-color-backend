@@ -151,3 +151,15 @@ class ProfileTopic(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True
     )
+
+class ImageUpload(models.Model):
+    profile = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE
+    )
+
+    file = models.FileField(blank=False, null=False)
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )

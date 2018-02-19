@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 
 # App
-from wac.apps.accounts.models import Profile
+from wac.apps.accounts.models import Profile, ImageUpload
 
 # Rest framework
 from rest_framework import serializers
@@ -56,3 +56,9 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'email', 'password', 'profile')
+
+
+class ImageSerializer(serializers.ModelSerializer):
+    class Meta():
+        model = ImageUpload
+        fields = ('file', 'profile')
