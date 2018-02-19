@@ -6,7 +6,7 @@ from wac.apps.accounts.api.serializers import (
     UserSerializer,
     ProfileSerializer
 )
-from wac.apps.accounts.models import Profile
+from wac.apps.accounts.models import (Profile, ProfileLocation)
 
 # Rest Framework
 from rest_framework import viewsets
@@ -29,4 +29,19 @@ class ProfileViewSet(viewsets.ModelViewSet):
     http_method_names = ['get', 'put']
 
     def get_queryset(self):
-        return Profile.objects.all().order_by("-pk")
+        queryset = Profile.objects.all().order_by("-pk")
+
+        location = self.request.query_params.get('location', None)
+        if location is not None:
+            queryset = queryset.filter(location=location)
+
+        poc = self.request.query_params.get('poc', None)
+        if poc is not None:
+            queryset = queryset.filter(poc=True)
+
+        woman = self.request.query_params.get('woman', None)
+        if woman is not None:
+            queryset = queryset.filter(woman=True)
+
+
+        return queryset
