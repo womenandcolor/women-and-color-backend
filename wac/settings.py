@@ -24,9 +24,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'gajid00k$$l7hzp$=3n19f$8nkckx&y)r2v+h3!e%4!6o*^otl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', False) == 'true'
 
-ALLOWED_HOSTS = ['women-and-color-backend.herokuapp.com']
+ALLOWED_HOSTS = ['women-and-color-backend.herokuapp.com', 'localhost']
+
+FRONTEND_BASE_URL = 'http://localhost:8080'
+
+if not DEBUG:
+    FRONTEND_BASE_URL = 'https://womenandcolor-frontend.herokuapp.com'
 
 
 # Application definition
