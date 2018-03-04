@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+FRONTEND_BASE_URL = os.getenv('FRONTEND_BASE_URL')
+
 
 # Application definition
 
@@ -77,10 +79,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'wac.context_processors.global_settings',
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'wac.wsgi.application'
 
