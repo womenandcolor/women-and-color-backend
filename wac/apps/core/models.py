@@ -46,3 +46,5 @@ class Topic(models.Model):
 
     def __unicode__(self):
         return self.topic
+
+class ContactForm(models.Model):
