@@ -18,20 +18,21 @@ class Command(BaseCommand):
             header = next(reader)
             for row in reader:
                 # check if user exists
+                email = row[9].strip()
+                user_exists = User.objects.filter(email=email).exists()
 
-                user_exists = User.objects.filter(email=row[9]).exists()
                 if not user_exists:
 
                     # create user and profile
                     user = User.objects.create_user(
-                        row[9],
-                        row[9],
+                        email,
+                        email,
                         uuid.uuid4()
                     )
 
                     user.save()
                 else:
-                    user = User.objects.filter(email=row[9])[0]
+                    user = User.objects.filter(email=email)[0]
 
                 # populate profile
                 user.profile.image=row[3]
@@ -40,6 +41,11 @@ class Command(BaseCommand):
                 user.profile.position=row[6]
                 user.profile.organization=row[7]
                 user.profile.twitter=row[8]
+
+                identities = row[10].split('|')
+
+                user.profile.poc = 'Person of Color' in identities
+                user.profile.woman = 'Woman' in identities
 
                 # add location to profile
                 location = Location.objects.get(city='Toronto')
@@ -52,7 +58,7 @@ class Command(BaseCommand):
                     user.profile.topics.add(topic)
 
                 user.profile.save()
-                self.stdout.write(self.style.SUCCESS('Created user {}'.format(user.profile.first_name)))
+                self.stdout.write(self.style.SUCCESS('Created or updated user {}'.format(user.profile.first_name)))
 
     def add_arguments(self, parser):
         parser.add_argument('file')
