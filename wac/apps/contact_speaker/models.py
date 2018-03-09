@@ -3,6 +3,9 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.core.mail import send_mail
 from django.conf import settings
+from django.template import Context
+from django.template.loader import render_to_string, get_template
+
 
 from wac.apps.accounts.models import Profile
 
@@ -77,28 +80,19 @@ def send_message_to_speaker(sender, **kwargs):
         contact_form = kwargs.get('instance')
         recipient = contact_form.profile
 
-        message = ("""
-        Hi {recipient_name},
+        context = {
+            'recipient_name': recipient.first_name,
+            'sender_name': contact_form.full_name,
+            'email': contact_form.email,
+            'date': contact_form.event_date,
+            'time': contact_form.event_time,
+            'venue': contact_form.venue_name,
+            'compensation': ('No', 'Yes')[contact_form.speaker_compensation == True],
+            'code_of_conduct': ('No', 'Yes')[contact_form.code_of_conduct == True],
+            'comments': contact_form.comments
+        }
 
-        {sender_name} has sent you a message from www.womenandcolor.com!
+        txt_message = render_to_string('contact_speaker/email/speaker_contact_form.txt', context)
+        html_message = render_to_string('contact_speaker/email/speaker_contact_form.html', context)
 
-        From: {email}
-        Event date: {date}
-        Event time: {time}
-        Venue: {venue}
-        Speaker compensation: {compensation}
-        Message: "{comments}"
-
-        If you're interested in this speaking opportunity, please contact {sender_name} at {email}.
-        """).format(
-            recipient_name=recipient.first_name,
-            sender_name=contact_form.full_name,
-            email=contact_form.email,
-            date=contact_form.event_date,
-            time=contact_form.event_time,
-            venue=contact_form.venue_name,
-            compensation=contact_form.speaker_compensation,
-            comments=contact_form.comments
-        )
-
-        send_mail(subject, message, settings.FROM_EMAIL, [contact_form.profile.user.email], fail_silently=False)
+        send_mail(subject, txt_message, settings.FROM_EMAIL, [contact_form.profile.user.email], fail_silently=False, html_message=html_message)
