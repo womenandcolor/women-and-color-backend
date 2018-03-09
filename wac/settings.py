@@ -16,6 +16,8 @@ import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+FRONTEND_BASE_URL = os.getenv('FRONTEND_BASE_URL')
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -50,7 +52,8 @@ INSTALLED_APPS = [
     # App
     'wac.apps.core',
     'wac.apps.accounts',
-    'wac.apps.frontend'
+    'wac.apps.frontend',
+    'wac.apps.contact_speaker'
 ]
 
 MIDDLEWARE = [
@@ -97,7 +100,7 @@ DATABASES = {
     )
 }
 
-if DEBUG == 'true':
+if DEBUG == True:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -183,3 +186,13 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_LOGOUT_ON_GET = True
+
+
+# Sendgrid
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.getenv('SENDGRID_ACCOUNT')
+EMAIL_HOST_PASSWORD = os.getenv('SENDGRID_PASSWORD')
+EMAIL_USE_TLS = True
+FROM_EMAIL = 'hello@womenandcolor.com'

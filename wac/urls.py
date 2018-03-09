@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('wac.apps.frontend.urls', namespace='frontend')),
     path(r'api/v1/', include('wac.apps.core.api.urls', namespace='core-api')),
     path(r'api/v1/', include('wac.apps.accounts.api.urls', namespace='account-api')),
+    path(r'api/v1/', include('wac.apps.contact_speaker.api.urls', namespace='contact-speaker-api'))
 ]
 
 if settings.DEBUG:

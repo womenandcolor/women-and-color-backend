@@ -1,0 +1,13 @@
+Hi {{recipient_name}},
+
+{{sender_name}} has sent you a message from www.womenandcolor.com!
+
+From: {{email}}
+Event date: {{date}}
+Event time: {{time}}
+Venue: {{venue}}
+Speaker compensation: {{compensation}}
+Code of Conduct: {{code_of_conduct}}
+Message: {{comments}}
+
+If you're interested in this speaking opportunity, please contact {{sender_name}} at {{email}}.
