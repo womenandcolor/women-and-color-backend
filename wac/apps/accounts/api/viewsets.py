@@ -51,7 +51,12 @@ class ProfileViewSet(viewsets.ModelViewSet):
             queryset = queryset.annotate(
                 search =
                     SearchVector('first_name', 'last_name', 'description', 'organization', 'topics__topic')
-            ).filter(search=query).distinct()
+            ).filter(search=query)
+
+        limit = int(self.request.query_params.get('limit', 20))
+        offset = int(self.request.query_params.get('offset', 0))
+
+        queryset = queryset[offset:offset+limit]
 
         return set(queryset)
 
