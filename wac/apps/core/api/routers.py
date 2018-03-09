@@ -7,4 +7,4 @@ from rest_framework import routers
 
 router = routers.SimpleRouter()
 router.register(r'locations', LocationViewSet)
-router.register(r'topics', TopicViewSet)
+router.register(r'topics', TopicViewSet, base_name="topic")
