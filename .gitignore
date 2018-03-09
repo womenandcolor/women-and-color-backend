@@ -119,3 +119,6 @@ nbproject
 */__pycache__/*
 __pycache__/
 media
+
+# data to import
+*.csv
