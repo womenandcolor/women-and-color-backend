@@ -1,5 +1,6 @@
 # Django
 from django.contrib.auth.models import User
+from django.contrib.postgres.search import SearchVector
 
 # App
 from wac.apps.accounts.api.serializers import (
@@ -45,8 +46,14 @@ class ProfileViewSet(viewsets.ModelViewSet):
         if woman is not None:
             queryset = queryset.filter(woman=True)
 
+        query = self.request.query_params.get('q', None)
+        if query is not None:
+            queryset = queryset.annotate(
+                search =
+                    SearchVector('first_name', 'last_name', 'description', 'organization', 'topics__topic')
+            ).filter(search=query).distinct()
 
-        return queryset
+        return set(queryset)
 
 
 class ImageUploadViewSet(viewsets.ModelViewSet):
