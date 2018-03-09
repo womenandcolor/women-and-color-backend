@@ -2,7 +2,6 @@
 from django.core.management.base import BaseCommand, CommandError
 
 # App
-# App
 from wac.apps.core.models import Location
 from wac.apps.core.management.commands._locations import LOCATIONS
 
