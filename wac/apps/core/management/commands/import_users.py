@@ -3,6 +3,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth.models import User
 import csv
 import uuid
+import pdb
 
 # App
 from wac.apps.accounts.models import Profile
