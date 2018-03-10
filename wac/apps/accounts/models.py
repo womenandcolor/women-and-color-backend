@@ -29,7 +29,9 @@ class Profile(models.Model):
         blank=True
     )
 
-    topics = models.ManyToManyField(Topic)
+    topics = models.ManyToManyField(
+        Topic
+    )
 
     image = models.CharField(
         max_length=5000,

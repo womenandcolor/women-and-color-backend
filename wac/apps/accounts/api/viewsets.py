@@ -29,7 +29,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
-    http_method_names = ['get', 'put']
 
     def get_queryset(self):
         queryset = Profile.objects.all().order_by("-pk")
@@ -53,12 +52,12 @@ class ProfileViewSet(viewsets.ModelViewSet):
                     SearchVector('first_name', 'last_name', 'description', 'organization', 'topics__topic')
             ).filter(search=query)
 
-        limit = int(self.request.query_params.get('limit', 20))
-        offset = int(self.request.query_params.get('offset', 0))
+        if 'offset' in self.request.GET or 'limit' in self.request.GET:
+            limit = int(self.request.query_params.get('limit', 20))
+            offset = int(self.request.query_params.get('offset', 0))
+            queryset = queryset[offset:offset+limit]
 
-        queryset = queryset[offset:offset+limit]
-
-        return set(queryset)
+        return queryset
 
 
 class ImageUploadViewSet(viewsets.ModelViewSet):
