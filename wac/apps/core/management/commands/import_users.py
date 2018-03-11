@@ -9,6 +9,8 @@ import pdb
 from wac.apps.accounts.models import Profile
 from wac.apps.core.models import Location, Topic
 
+AWS_BUCKET = 'https://s3.ca-central-1.amazonaws.com/womenandcolor/'
+
 
 class Command(BaseCommand):
     help = "Import users from CSV file. Usage: python manage.py import_users '/path/to/file.csv'"
@@ -36,17 +38,22 @@ class Command(BaseCommand):
                     user = User.objects.filter(email=email)[0]
 
                 # populate profile
-                user.profile.image=row[3]
-                user.profile.first_name =row[4]
-                user.profile.last_name=row[5]
-                user.profile.position=row[6]
-                user.profile.organization=row[7]
-                user.profile.twitter=row[8]
+                user.profile.first_name = row[4]
+                user.profile.last_name = row[5]
+                user.profile.position = row[6]
+                user.profile.organization = row[7]
+                user.profile.twitter = row[8]
 
                 identities = row[10].split('|')
 
                 user.profile.poc = 'Person of Color' in identities
                 user.profile.woman = 'Woman' in identities
+
+                # use image on AWS bucket
+                wp_image_location = row[3]
+                filename = wp_image_location.split('/')[-1]
+                aws_location = AWS_BUCKET + filename
+                user.profile.image = aws_location
 
                 # add location to profile
                 location = Location.objects.get(city='Toronto')
