@@ -23,7 +23,8 @@ class ProfileSerializer(serializers.ModelSerializer):
         data['email'] = instance.user.email or instance.user.email
         topic_list = map(lambda t: t.topic, instance.topics.all())
         data['topic_list'] = ', '.join(topic_list)
-        data['city'] = instance.location.city
+        if instance.location is not None:
+            data['city'] = instance.location.city
         return data
 
 
