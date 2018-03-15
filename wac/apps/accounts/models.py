@@ -3,6 +3,7 @@ from django.db import models
 
 # App
 from wac.apps.core.models import Location, Topic
+from wac.storage_backends import MediaStorage
 
 class Profile(models.Model):
     """
@@ -167,7 +168,7 @@ class ImageUpload(models.Model):
         on_delete=models.CASCADE
     )
 
-    file = models.FileField(blank=False, null=False)
+    file = models.FileField(blank=False, null=False, storage=MediaStorage())
 
     created_at = models.DateTimeField(
         auto_now_add=True
