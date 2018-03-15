@@ -1,15 +1,13 @@
 # Django
+from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 from django.contrib.auth.models import User
 import csv
 import uuid
-import pdb
 
 # App
 from wac.apps.accounts.models import Profile
 from wac.apps.core.models import Location, Topic
-
-AWS_BUCKET = 'https://s3.ca-central-1.amazonaws.com/womenandcolor/'
 
 
 class Command(BaseCommand):
@@ -52,7 +50,7 @@ class Command(BaseCommand):
                 # use image on AWS bucket
                 wp_image_location = row[3]
                 filename = wp_image_location.split('/')[-1]
-                aws_location = AWS_BUCKET + filename
+                aws_location = settings.MEDIA_URL + filename
                 user.profile.image = aws_location
 
                 # add location to profile

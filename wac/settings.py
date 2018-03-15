@@ -207,7 +207,7 @@ AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
 
-MEDIA_URL = 'https://%s/%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_STORAGE_BUCKET_NAME, AWS_MEDIA_LOCATION)
+MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_MEDIA_LOCATION)
 
 # Logging
 
