@@ -28,7 +28,7 @@ SECRET_KEY = 'gajid00k$$l7hzp$=3n19f$8nkckx&y)r2v+h3!e%4!6o*^otl'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', False) == 'true'
 
-ALLOWED_HOSTS = ['women-and-color-backend.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['women-and-color-backend.herokuapp.com', 'localhost', 'beta.womenandcolor.com']
 
 
 # Application definition
