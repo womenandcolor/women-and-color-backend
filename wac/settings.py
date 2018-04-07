@@ -17,6 +17,7 @@ import dj_database_url
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 FRONTEND_BASE_URL = os.getenv('FRONTEND_BASE_URL')
+BACKEND_BASE_URL = os.getenv('BACKEND_BASE_URL')
 
 
 # Quick-start development settings - unsuitable for production
