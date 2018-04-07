@@ -13,7 +13,7 @@ from wac.apps.core.models import Location, Topic
 
 
 class Command(BaseCommand):
-    help = "Email existing users to prompt them to update their accounts before launch. Usage: python manage.py send_prelaunch_prompt"
+    help = "Email existing users to prompt them to update their accounts before launch. Accepts one argument, either 'all' to send to all users or an email address to send to one user."
 
     def send_email_to_user(self, user):
         request = HttpRequest()
@@ -31,8 +31,17 @@ class Command(BaseCommand):
 
         PasswordResetView.as_view()(request)
 
+    def add_arguments(self, parser):
+        parser.add_argument('user')
+
     def handle(self, *args, **options):
-        users = User.objects.all();
+        recipient = options['user']
+
+        if recipient == 'all':
+            users = User.objects.all();
+        else:
+            users = User.objects.filter(email=recipient)
+
         self.stdout.write(self.style.SUCCESS('Sending password reset emails to {} users'.format(users.count())))
 
         for user in users:
