@@ -3,6 +3,7 @@ Hi {{recipient_name}},
 {{sender_name}} has sent you a message from www.womenandcolor.com!
 
 From: {{email}}
+Event name: {{event}}
 Event date: {{date}}
 Event time: {{time}}
 Venue: {{venue}}
