@@ -1,0 +1,11 @@
+{{recipient_name}} has been sent a message via www.womenandcolor.com.
+
+From: {{sender_name}}
+Email provided: {{email}}
+Event name: {{event}}
+Event date: {{date}}
+Event time: {{time}}
+Venue: {{venue}}
+Speaker compensation: {{compensation}}
+Code of Conduct: {{code_of_conduct}}
+Message: {{comments}}

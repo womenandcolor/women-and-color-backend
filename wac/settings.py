@@ -186,6 +186,7 @@ EMAIL_HOST_USER = os.getenv('SENDGRID_ACCOUNT')
 EMAIL_HOST_PASSWORD = os.getenv('SENDGRID_PASSWORD')
 EMAIL_USE_TLS = True
 FROM_EMAIL = 'hello@womenandcolor.com'
+MESSAGE_EMAIL = 'messages@womenandcolor.com'
 
 # AWS
 
