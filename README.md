@@ -8,6 +8,7 @@ We're building a RESTful API for the Women and Color project, which is a communi
 - Docker
 
 ## Get started
+- Copy `env/dev.env.template` as `env/dev.env` and either contact another contributor to get the missing environment variables or provide your own.
 - Install Docker and docker-compose
 - Run `docker-compose up`, sometimes the web app comes up before postgres configuration has ended which can cause a failure, if this happens, run `docker-compose up` again.
 - Run `docker ps` to get the container ID for the app container (should be the has associated with womenandcolorbackend_app_)
