@@ -31,7 +31,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
 
     def get_queryset(self):
-        queryset = Profile.objects.all().order_by("-pk")
+        queryset = Profile.objects.filter(status=Profile.APPROVED).order_by("-pk")
 
         location = self.request.query_params.get('location', None)
         if location is not None:
