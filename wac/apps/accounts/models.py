@@ -18,9 +18,24 @@ class Profile(models.Model):
         (THEY, THEY)
     )
 
+    APPROVED = 'approved'
+    PENDING = 'pending'
+    REJECTED = 'rejected'
+    STATUS_OPTIONS = (
+        (APPROVED, APPROVED),
+        (PENDING, PENDING),
+        (REJECTED, REJECTED)
+    )
+
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
+    )
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_OPTIONS,
+        default=PENDING
     )
 
     location = models.ForeignKey(
