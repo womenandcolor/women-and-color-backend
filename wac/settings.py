@@ -31,9 +31,9 @@ DEBUG = os.getenv('DEBUG', False) == 'true'
 
 ALLOWED_HOSTS = ['women-and-color-backend.herokuapp.com', 'localhost', 'beta.womenandcolor.com']
 
-# if DEBUG == False:
-#     SECURE_SSL_REDIRECT = True
-#     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+if DEBUG == False:
+    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Application definition
