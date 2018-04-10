@@ -30,6 +30,8 @@ SECRET_KEY = 'gajid00k$$l7hzp$=3n19f$8nkckx&y)r2v+h3!e%4!6o*^otl'
 DEBUG = os.getenv('DEBUG', False) == 'true'
 
 ALLOWED_HOSTS = ['women-and-color-backend.herokuapp.com', 'localhost', 'beta.womenandcolor.com']
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Application definition
