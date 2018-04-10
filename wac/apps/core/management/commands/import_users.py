@@ -63,6 +63,9 @@ class Command(BaseCommand):
                     topic, _created = Topic.objects.get_or_create(topic=tag)
                     user.profile.topics.add(topic)
 
+                # set profile status as approved
+                user.profile.status = Profile.APPROVED
+
                 user.profile.save()
                 self.stdout.write(self.style.SUCCESS('Created or updated user {}'.format(user.profile.first_name)))
 
