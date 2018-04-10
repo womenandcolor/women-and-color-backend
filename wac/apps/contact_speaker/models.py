@@ -95,7 +95,7 @@ def send_message_to_speaker(sender, **kwargs):
         txt_message = render_to_string('contact_speaker/email/speaker_contact_form.txt', context)
         html_message = render_to_string('contact_speaker/email/speaker_contact_form.html', context)
 
-        send_mail(subject, txt_message, settings.FROM_EMAIL, [contact_form.profile.user.email], fail_silently=False, html_message=html_message)
+        send_mail(subject, txt_message, settings.DEFAULT_FROM_EMAIL, [contact_form.profile.user.email], fail_silently=False, html_message=html_message)
 
 
 @receiver(post_save, sender=ContactForm)
@@ -120,4 +120,4 @@ def send_copy_of_message_to_sender_and_wac(sender, **kwargs):
         txt_message = render_to_string('contact_speaker/email/speaker_contact_form_copy.txt', context)
         html_message = render_to_string('contact_speaker/email/speaker_contact_form_copy.html', context)
 
-        send_mail(subject, txt_message, settings.FROM_EMAIL, [contact_form.email, settings.MESSAGE_EMAIL], fail_silently=False, html_message=html_message)
+        send_mail(subject, txt_message, settings.DEFAULT_FROM_EMAIL, [contact_form.email, settings.MESSAGE_EMAIL], fail_silently=False, html_message=html_message)

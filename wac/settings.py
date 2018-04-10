@@ -177,6 +177,8 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_EMAIL_SUBJECT_PREFIX = 'Women and Color'
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'httpsg'
 
 
 # Sendgrid
@@ -186,7 +188,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.getenv('SENDGRID_ACCOUNT')
 EMAIL_HOST_PASSWORD = os.getenv('SENDGRID_PASSWORD')
 EMAIL_USE_TLS = True
-FROM_EMAIL = 'hello@womenandcolor.com'
+DEFAULT_FROM_EMAIL = 'hello@womenandcolor.com'
 MESSAGE_EMAIL = 'messages@womenandcolor.com'
 
 # AWS
