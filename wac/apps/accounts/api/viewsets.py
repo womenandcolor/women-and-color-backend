@@ -1,6 +1,7 @@
 # Django
 from django.contrib.auth.models import User
 from django.contrib.postgres.search import SearchVector
+from django.shortcuts import get_object_or_404
 
 # App
 from wac.apps.accounts.api.serializers import (
@@ -58,6 +59,27 @@ class ProfileViewSet(viewsets.ModelViewSet):
             queryset = queryset[offset:offset+limit]
 
         return queryset
+
+    def get_object(self):
+        queryset = Profile.objects.all()
+
+        # Perform the lookup filtering.
+        lookup_url_kwarg = self.lookup_url_kwarg or self.lookup_field
+
+        assert lookup_url_kwarg in self.kwargs, (
+            'Expected view %s to be called with a URL keyword argument '
+            'named "%s". Fix your URL conf, or set the `.lookup_field` '
+            'attribute on the view correctly.' %
+            (self.__class__.__name__, lookup_url_kwarg)
+        )
+
+        filter_kwargs = {self.lookup_field: self.kwargs[lookup_url_kwarg]}
+        obj = get_object_or_404(queryset, **filter_kwargs)
+
+        # May raise a permission denied
+        self.check_object_permissions(self.request, obj)
+
+        return obj
 
 
 class ImageUploadViewSet(viewsets.ModelViewSet):
