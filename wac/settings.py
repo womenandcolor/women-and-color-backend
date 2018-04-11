@@ -185,6 +185,11 @@ ACCOUNT_EMAIL_SUBJECT_PREFIX = '[Women and Color] '
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 
+# Email
+if DEBUG == True:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Sendgrid
 
