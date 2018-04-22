@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate, login
 
 # App
 from wac.apps.accounts.models import (Profile, ImageUpload)
+from wac.apps.core.models import Topic
+from wac.apps.core.api.serializers import TopicSerializer
 
 # Rest framework
 from rest_framework import serializers
@@ -11,7 +13,7 @@ from rest_framework.validators import UniqueValidator
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    topics = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    topics = TopicSerializer(many=True, read_only=False)
 
     class Meta:
         model = Profile
@@ -26,6 +28,22 @@ class ProfileSerializer(serializers.ModelSerializer):
         if instance.location is not None:
             data['city'] = instance.location.city
         return data
+
+    def update(self, instance, validated_data):
+        topics_data = validated_data.pop('topics')
+        instance = super(ProfileSerializer, self).update(instance, validated_data)
+
+        instance.topics.clear()
+
+        for topic_data in topics_data:
+            topic_qs = Topic.objects.filter(topic__iexact=topic_data['topic'])
+
+            if topic_qs.exists():
+                topic = topic_qs.first()
+
+            instance.topics.add(topic)
+
+        return instance
 
 
 class UserSerializer(serializers.ModelSerializer):
