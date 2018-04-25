@@ -14,11 +14,21 @@ from wac.apps.accounts.models import (Profile, ProfileLocation, ImageUpload)
 # Rest Framework
 from rest_framework import viewsets
 from rest_framework.parsers import FormParser, MultiPartParser
+from rest_framework import permissions
+
+
+class UpdatePermissions(permissions.BasePermission):
+    def has_permission(self, request, view):
+        submitted_id = request.data.get('id')
+        if view.action == 'update' and submitted_id != request.user.id:
+            return False
+        return True
 
 
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     http_method_names = ['get', 'post', 'put']
+    permission_classes = (UpdatePermissions,)
 
     def get_queryset(self):
         if not self.request.user.is_authenticated:
@@ -30,6 +40,8 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
+    http_method_names = ['get', 'post', 'put']
+    permission_classes = (UpdatePermissions,)
 
     def get_queryset(self):
         queryset = Profile.objects.filter(status=Profile.APPROVED).order_by("-pk")
