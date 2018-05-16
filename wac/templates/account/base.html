@@ -28,6 +28,16 @@
 <script src="{% static "js/respond.min.js" %}"></script>
 <![endif]-->
 {% block extra_head %}{% endblock %}
+</head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-76994229-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-76994229-1');
+</script>
 <body>
     <!-- Header navigation menu -->
       <div id="navigation-container" style="margin-bottom: 120px;"></div>

@@ -21,6 +21,16 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-76994229-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-76994229-1');
+    </script>
+
 {% block extra_js %}{% endblock %}
 
 <!--[if lt IE 9]>
@@ -45,6 +55,6 @@
     <!-- Footer -->
       <div id="footer-container"></div>
       <script type="text/javascript" src="{{ FRONTEND_BASE_URL }}/navigation.js"></script>
-      <script type="text/javascript" src="{{ FRONTEND_BASE_URL }}/footer.js"></script>
+      <!-- <script type="text/javascript" src="{{ FRONTEND_BASE_URL }}/footer.js"></script> -->
 </body>
 </html>
