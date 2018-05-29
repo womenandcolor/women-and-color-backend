@@ -22,7 +22,6 @@ class ProfileSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         data = super(ProfileSerializer, self).to_representation(instance)
         data['display_name'] = instance.display_name()
-        data['email'] = instance.user.email or instance.user.email
         topic_list = map(lambda t: t.topic, instance.topics.all())
         data['topic_list'] = ', '.join(topic_list)
         if instance.location is not None:
