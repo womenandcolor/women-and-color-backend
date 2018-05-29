@@ -49,17 +49,31 @@ There are currently four models: User, Profile, Topic, and City.
     - `twitter` (string)
     - `linkedin` (string)
     - `website` (string)
-    - `image` (string), *file upload not implemented yet*
-- **City** `/cities`
+    - `image` (string),
+    - `page` (string),
+    - `location` (foreign key),
+    - `display_name` (string),
+    - `city` (string),
+    - `status` (string),
+    - `featured_talks` (array),
+    - `topics` (array),
+- **Location** `/locations`
   - Fields:
-    - `name` (string)
-    - `province/state` (string)
+    - `city` (string)
+    - `province` (string)
     - `country` (string)
 - **Topic** `/topics`
   - Topics that the speakers are available to speak about
   - Needs to be reorganized into a taxonomy that supports topic categories
   - Fields:
-    - `name` (string)
+    - `topic` (string)
+- **Featured Talk** `/featured/talks`
+  - Links of past talks uploaded by the user on their profile
+  - Fields:
+    - `event_name` (string)
+    - `talk_title` (string)
+    - `url` (string)
+    - `profile` (foreign key)
 - The User, City, and Topic models are all associated with the Profile.
 
 <!-- Links -->
