@@ -7,9 +7,10 @@ from django.shortcuts import get_object_or_404
 from wac.apps.accounts.api.serializers import (
     UserSerializer,
     ProfileSerializer,
-    ImageSerializer
+    ImageSerializer,
+    FeaturedTalkSerializer
 )
-from wac.apps.accounts.models import (Profile, ProfileLocation, ImageUpload)
+from wac.apps.accounts.models import (Profile, ProfileLocation, ImageUpload, FeaturedTalk)
 
 # Rest Framework
 from rest_framework import viewsets
@@ -21,6 +22,17 @@ class UpdatePermissions(permissions.BasePermission):
     def has_permission(self, request, view):
         submitted_id = request.data.get('id')
         if view.action == 'update' and submitted_id != request.user.id:
+            return False
+        return True
+
+class ModifyFeaturedTalkPermissions(permissions.BasePermission):
+    def has_permission(self, request, view):
+        profile_id = request.data.get('profile')
+        if view.action == 'create' and profile_id != request.user.id:
+            return False
+        if view.action == 'update' and profile_id != request.user.id:
+            return False
+        if view.action == 'destroy' and profile_id != request.user.id:
             return False
         return True
 
@@ -104,3 +116,11 @@ class ImageUploadViewSet(viewsets.ModelViewSet):
         profile = Profile.objects.get(pk=int(self.request.data.get('profile')))
         file = self.request.data.get('file')
         serializer.save(profile=profile, file=file)
+
+
+class FeaturedTalkViewSet(viewsets.ModelViewSet):
+
+    queryset = FeaturedTalk.objects.all()
+    serializer_class = FeaturedTalkSerializer
+    permission_classes = (ModifyFeaturedTalkPermissions,)
+    http_method_names = ['get', 'post', 'put', 'delete']

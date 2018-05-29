@@ -5,6 +5,7 @@ from django.db import models
 from wac.apps.core.models import Location, Topic
 from wac.storage_backends import MediaStorage
 
+
 class Profile(models.Model):
     """
     Extends from the user model
@@ -188,3 +189,37 @@ class ImageUpload(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True
     )
+
+class FeaturedTalk(models.Model):
+    event_name = models.CharField(
+        max_length=250,
+        null=False,
+        blank=False
+    )
+
+    url = models.CharField(
+        max_length=250,
+        null=False,
+        blank=False
+    )
+
+    talk_title = models.CharField(
+        max_length=250,
+        null=False,
+        blank=False
+    )
+
+    profile = models.ForeignKey(
+        Profile,
+        related_name='featured_talks',
+        on_delete=models.CASCADE,
+        null=True
+    )
+
+    def __unicode__(self):
+        return "{talk_title} at {event_name}".format(
+            talk_title=self.talk_title,
+            event_name=self.event_name
+        )
+
+

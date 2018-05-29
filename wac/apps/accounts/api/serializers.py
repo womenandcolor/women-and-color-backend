@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 
 # App
-from wac.apps.accounts.models import (Profile, ImageUpload)
+from wac.apps.accounts.models import (Profile, ImageUpload, FeaturedTalk)
 from wac.apps.core.models import Topic
 from wac.apps.core.api.serializers import TopicSerializer
 
@@ -11,9 +11,15 @@ from wac.apps.core.api.serializers import TopicSerializer
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
+class FeaturedTalkSerializer(serializers.ModelSerializer):
+    class Meta():
+        model = FeaturedTalk
+        fields = ('event_name', 'talk_title', 'url', 'id')
+
 
 class ProfileSerializer(serializers.ModelSerializer):
     topics = TopicSerializer(many=True, read_only=False)
+    featured_talks = FeaturedTalkSerializer(many=True, read_only=True)
 
     class Meta:
         model = Profile
@@ -22,8 +28,6 @@ class ProfileSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         data = super(ProfileSerializer, self).to_representation(instance)
         data['display_name'] = instance.display_name()
-        topic_list = map(lambda t: t.topic, instance.topics.all())
-        data['topic_list'] = ', '.join(topic_list)
         if instance.location is not None:
             data['city'] = instance.location.city
         return data
@@ -84,3 +88,4 @@ class ImageSerializer(serializers.ModelSerializer):
     class Meta():
         model = ImageUpload
         fields = ('file', 'profile')
+
