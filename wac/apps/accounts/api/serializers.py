@@ -14,7 +14,7 @@ from rest_framework.validators import UniqueValidator
 class FeaturedTalkSerializer(serializers.ModelSerializer):
     class Meta():
         model = FeaturedTalk
-        fields = ('event_name', 'talk_title', 'url', 'id')
+        fields = '__all__'
 
 
 class ProfileSerializer(serializers.ModelSerializer):

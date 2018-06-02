@@ -120,7 +120,15 @@ class ImageUploadViewSet(viewsets.ModelViewSet):
 
 class FeaturedTalkViewSet(viewsets.ModelViewSet):
 
-    queryset = FeaturedTalk.objects.all()
+    queryset = FeaturedTalk.objects.order_by('id').reverse()
     serializer_class = FeaturedTalkSerializer
     permission_classes = (ModifyFeaturedTalkPermissions,)
     http_method_names = ['get', 'post', 'put', 'delete']
+
+    def perform_create(self, serializer):
+        profile = Profile.objects.get(pk=int(self.request.data.get('profile')))
+
+        serializer.save(profile=profile,
+                        event_name=self.request.data.get('event_name'),
+                        talk_title=self.request.data.get('talk_title'),
+                        url=self.request.data.get('url'))

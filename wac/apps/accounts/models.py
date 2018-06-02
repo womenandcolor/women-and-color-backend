@@ -216,6 +216,12 @@ class FeaturedTalk(models.Model):
         null=True
     )
 
+    image = models.CharField(
+        max_length=500,
+        null=True,
+        blank=True
+    )
+
     def __unicode__(self):
         return "{talk_title} at {event_name}".format(
             talk_title=self.talk_title,
