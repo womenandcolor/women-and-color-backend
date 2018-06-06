@@ -131,6 +131,10 @@ class Profile(models.Model):
         auto_now_add=True
     )
 
+    updated_at = models.DateTimeField(
+        auto_now=True
+    )
+
     def display_name(self):
         first_name = self.first_name
         last_name = self.last_name
