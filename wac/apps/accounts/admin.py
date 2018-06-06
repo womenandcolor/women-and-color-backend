@@ -12,6 +12,9 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = [
         'id',
         'user',
-        'created_at'
+        'display_name',
+        'status',
+        'created_at',
+        'updated_at'
     ]
 
