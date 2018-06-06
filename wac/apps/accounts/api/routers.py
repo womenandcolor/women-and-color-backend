@@ -10,4 +10,3 @@ router.register(r'users', UserViewSet, base_name='user')
 router.register(r'profiles', ProfileViewSet, base_name='profile')
 router.register(r'images', ImageUploadViewSet, base_name='image')
 router.register(r'featured_talks', FeaturedTalkViewSet, base_name='featured_talk')
-
