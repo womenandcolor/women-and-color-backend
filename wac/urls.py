@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework_jwt.views import obtain_jwt_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     re_path(r'^accounts/', include('rest_auth.urls')),
     re_path(r'^accounts/registration/', include('rest_auth.registration.urls')),
+    re_path(r'^api-token-auth/', obtain_jwt_token),
 
     path('', include('wac.apps.frontend.urls', namespace='frontend')),
     path(r'api/v1/', include('wac.apps.core.api.urls', namespace='core-api')),
