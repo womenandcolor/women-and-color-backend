@@ -1,6 +1,8 @@
 # Django
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, get_user_model
+
+
 
 # App
 from wac.apps.accounts.models import (Profile, ImageUpload, FeaturedTalk)
@@ -88,4 +90,5 @@ class ImageSerializer(serializers.ModelSerializer):
     class Meta():
         model = ImageUpload
         fields = ('file', 'profile')
+
 

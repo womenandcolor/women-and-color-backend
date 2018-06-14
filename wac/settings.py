@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
+
+
 import os
 import dj_database_url
 
@@ -49,21 +51,25 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
 
     # Third Party
-    'rest_framework',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'corsheaders',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'rest_auth.registration',
     'storages',
 
     # App
     'wac.apps.core',
     'wac.apps.accounts',
-    'wac.apps.frontend',
     'wac.apps.contact_speaker'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -157,13 +163,18 @@ USE_TZ = True
 # ====================== REST FRAMEWORK ====================== #
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     )
 }
+
+REST_USE_JWT = True
+USER_DETAILS_SERIALIZER = 'wac.apps.accounts.api.serializers.UserSerializer'
+SITE_ID = 1
 # ============================================================ #
 
 # ====================== ALLAUTH ====================== #
@@ -172,11 +183,6 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-# ============================================================ #
-
-SITE_ID = 1
-
-# Django All Auth
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION  = "none"
@@ -187,6 +193,27 @@ ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_EMAIL_SUBJECT_PREFIX = '[Women and Color] '
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
 ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
+
+# ============================================================ #
+
+# REST AUTH
+
+OLD_PASSWORD_FIELD_ENABLED = True
+
+# CORS
+
+CORS_ORIGIN_WHITELIST = (
+    'www.womenandcolor.com',
+    'localhost:8000',
+    'localhost:8080',
+    '127.0.0.1:8000',
+    '127.0.0.1:8080'
+)
+
+CSRF_TRUSTED_ORIGINS = (
+    'www.womenandcolor.com',
+    'localhost:8000',
+)
 
 # Email
 if DEBUG == True:

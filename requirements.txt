@@ -1,6 +1,9 @@
 Django==2.0.1
 django-allauth==0.35.0
+django-cors-headers==2.2.0
 djangorestframework==3.7.7
+django-rest-auth==0.9.3
+djangorestframework-jwt==1.11.0
 ipdb==0.10.3
 pytz==2017.3
 requests==2.18.4
