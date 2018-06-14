@@ -31,7 +31,12 @@ SECRET_KEY = 'gajid00k$$l7hzp$=3n19f$8nkckx&y)r2v+h3!e%4!6o*^otl'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', False) == 'true'
 
-ALLOWED_HOSTS = ['womenandcolor-api-production.herokuapp.com', 'womenandcolor-api-staging.herokuapp.com', 'localhost', 'www.womenandcolor.com', 'womenandcolor.com']
+ALLOWED_HOSTS = [
+    'api.womenandcolor.com',
+    'womenandcolor-api-production.herokuapp.com',
+    'womenandcolor-api-staging.herokuapp.com',
+    'localhost',
+]
 
 if DEBUG == False:
     SECURE_SSL_REDIRECT = True
@@ -211,12 +216,14 @@ CORS_ORIGIN_WHITELIST = (
 )
 
 CSRF_TRUSTED_ORIGINS = (
+    'api.womenandcolor.com',
     'www.womenandcolor.com',
     'womenandcolor-staging.herokuapp.com',
     'womenandcolor-production.herokuapp.com',
     'womenandcolor-api-staging.herokuapp.com',
     'womenandcolor-api-production.herokuapp.com',
     'localhost:8080',
+    'localhost:8000'
 )
 
 # Email
