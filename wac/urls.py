@@ -23,13 +23,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     re_path(r'^accounts/', include('rest_auth.urls')),
+    re_path(r'^accounts/', include('django.contrib.auth.urls')),
     re_path(r'^accounts/registration/', include('rest_auth.registration.urls')),
     re_path(r'^api-token-auth/', obtain_jwt_token),
 
-    path('', include('wac.apps.frontend.urls', namespace='frontend')),
     path(r'api/v1/', include('wac.apps.core.api.urls', namespace='core-api')),
     path(r'api/v1/', include('wac.apps.accounts.api.urls', namespace='account-api')),
-    path(r'api/v1/', include('wac.apps.contact_speaker.api.urls', namespace='contact-speaker-api'))
+    path(r'api/v1/', include('wac.apps.contact_speaker.api.urls', namespace='contact-speaker-api')),
 ]
 
 if settings.DEBUG:

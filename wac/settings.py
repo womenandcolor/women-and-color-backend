@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
+
+
 import os
 import dj_database_url
 
@@ -172,6 +174,7 @@ REST_FRAMEWORK = {
 
 REST_USE_JWT = True
 USER_DETAILS_SERIALIZER = 'wac.apps.accounts.api.serializers.UserSerializer'
+SITE_ID = 1
 # ============================================================ #
 
 # ====================== ALLAUTH ====================== #
@@ -193,7 +196,9 @@ ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 
 # ============================================================ #
 
-SITE_ID = 1
+# REST AUTH
+
+OLD_PASSWORD_FIELD_ENABLED = True
 
 # CORS
 
