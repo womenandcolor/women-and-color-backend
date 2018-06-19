@@ -208,6 +208,7 @@ OLD_PASSWORD_FIELD_ENABLED = True
 # CORS
 
 CORS_ORIGIN_WHITELIST = (
+    'womenandcolor.com',
     'www.womenandcolor.com',
     'womenandcolor-staging.herokuapp.com',
     'womenandcolor-production.herokuapp.com',
@@ -216,6 +217,7 @@ CORS_ORIGIN_WHITELIST = (
 )
 
 CSRF_TRUSTED_ORIGINS = (
+    'womenandcolor.com',
     'api.womenandcolor.com',
     'www.womenandcolor.com',
     'womenandcolor-staging.herokuapp.com',
