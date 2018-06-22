@@ -10,7 +10,7 @@ from rest_framework.response import Response
 
 
 class LocationViewSet(viewsets.ModelViewSet):
-    queryset = Location.objects.all()
+    queryset = Location.objects.order_by('city')
     serializer_class = LocationSerializer
 
     @list_route(methods=['get'])

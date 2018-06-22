@@ -5,6 +5,8 @@ LOCATIONS = {
         {'city': 'Ottawa', 'province': 'Ontario'},
         {'city': 'Montréal', 'province': 'Québec'},
         {'city': 'Waterloo', 'province': 'Ontario'},
+        {'city': 'Edmonton', 'province': 'Alberta'},
+        {'city': 'Calgary', 'province': 'Alberta'},
     ],
     'USA': [
         {'city': 'Atlanta', 'province': 'Georgia'},
