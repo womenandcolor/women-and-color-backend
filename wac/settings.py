@@ -14,6 +14,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import dj_database_url
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -178,6 +179,9 @@ REST_FRAMEWORK = {
 }
 
 REST_USE_JWT = True
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
+}
 USER_DETAILS_SERIALIZER = 'wac.apps.accounts.api.serializers.UserSerializer'
 SITE_ID = 1
 # ============================================================ #
@@ -252,8 +256,9 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get('S3_BUCKET', '')
 AWS_REGION = 'ca-central-1'
 AWS_S3_CUSTOM_DOMAIN = "s3.%s.amazonaws.com/%s" % (AWS_REGION, AWS_STORAGE_BUCKET_NAME)
 AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
+    'CacheControl': 'max-age=31536000',
 }
+CLOUDFRONT_DOMAIN = os.environ.get('CLOUDFRONT_DOMAIN', '')
 
 AWS_MEDIA_LOCATION = 'media'
 MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_MEDIA_LOCATION)
