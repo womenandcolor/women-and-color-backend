@@ -1,8 +1,7 @@
 # Django
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, get_user_model
-
-
+from django.conf import settings
 
 # App
 from wac.apps.accounts.models import (Profile, ImageUpload, FeaturedTalk)
@@ -18,6 +17,13 @@ class FeaturedTalkSerializer(serializers.ModelSerializer):
         model = FeaturedTalk
         fields = '__all__'
 
+    def to_representation(self, instance):
+        data = super(FeaturedTalkSerializer, self).to_representation(instance)
+        if instance.image is not None and settings.AWS_S3_CUSTOM_DOMAIN in instance.image:
+            aws_domain, media_path = instance.image.split(settings.AWS_S3_CUSTOM_DOMAIN)
+            data['image'] = "https://{}{}".format(settings.CLOUDFRONT_DOMAIN, media_path)
+        return data
+
 
 class ProfileSerializer(serializers.ModelSerializer):
     topics = TopicSerializer(many=True, read_only=False)
@@ -30,6 +36,9 @@ class ProfileSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         data = super(ProfileSerializer, self).to_representation(instance)
         data['display_name'] = instance.display_name()
+        if instance.image is not None and settings.AWS_S3_CUSTOM_DOMAIN in instance.image:
+            aws_domain, media_path = instance.image.split(settings.AWS_S3_CUSTOM_DOMAIN)
+            data['image'] = "https://{}{}".format(settings.CLOUDFRONT_DOMAIN, media_path)
         if instance.location is not None:
             data['city'] = instance.location.city
         return data
@@ -85,10 +94,14 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'email', 'password', 'profile')
 
+    def to_representation(self, instance):
+        data = super(UserSerializer, self).to_representation(instance)
+        del data['password']
+        return data
+
 
 class ImageSerializer(serializers.ModelSerializer):
     class Meta():
         model = ImageUpload
         fields = ('file', 'profile')
-
 
