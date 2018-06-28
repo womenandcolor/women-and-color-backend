@@ -117,7 +117,6 @@ class ImageUploadViewSet(viewsets.ModelViewSet):
         file = self.request.data.get('file')
         serializer.save(profile=profile, file=file)
 
-
 class FeaturedTalkViewSet(viewsets.ModelViewSet):
 
     queryset = FeaturedTalk.objects.order_by('id').reverse()
