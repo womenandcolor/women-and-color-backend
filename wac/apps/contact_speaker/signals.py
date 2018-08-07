@@ -8,6 +8,8 @@ from wac.apps.contact_speaker.models import ContactForm
 
 @receiver(post_save, sender=ContactForm)
 def send_message_to_speaker(sender, **kwargs):
+    print('send_message_to_speaker')
+
     if kwargs.get('created', False):
         contact_form = kwargs.get('instance')
         recipient = contact_form.profile
@@ -29,7 +31,7 @@ def send_message_to_speaker(sender, **kwargs):
         txt_message = render_to_string('contact_speaker/email/speaker_contact_form.txt', context)
         html_message = render_to_string('contact_speaker/email/speaker_contact_form.html', context)
 
-        send_mail(subject, txt_message, settings.DEFAULT_FROM_EMAIL, [contact_form.profile.user.email], fail_silently=False, html_message=html_message)
+        result = send_mail(subject, txt_message, settings.DEFAULT_FROM_EMAIL, [contact_form.profile.user.email], fail_silently=False, html_message=html_message)
 
 
 @receiver(post_save, sender=ContactForm)
