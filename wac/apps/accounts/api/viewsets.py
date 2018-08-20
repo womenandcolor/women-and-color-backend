@@ -20,8 +20,12 @@ from rest_framework import permissions
 
 class UpdatePermissions(permissions.BasePermission):
     def has_permission(self, request, view):
+        print('VIEW ACTION')
+        print(view.action)
         submitted_id = request.data.get('id')
         if view.action == 'update' and submitted_id != request.user.id:
+            return False
+        if view.action == 'destroy' and submitted_id != request.user.id:
             return False
         return True
 
@@ -39,7 +43,7 @@ class ModifyFeaturedTalkPermissions(permissions.BasePermission):
 
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
-    http_method_names = ['get', 'post', 'put']
+    http_method_names = ['get', 'post', 'put', 'delete']
     permission_classes = (UpdatePermissions,)
 
     def get_queryset(self):
