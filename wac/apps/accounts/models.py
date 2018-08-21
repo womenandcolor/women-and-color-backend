@@ -136,6 +136,12 @@ class Profile(models.Model):
         auto_now=True
     )
 
+    published = models.BooleanField(
+        default=True,
+        null=False,
+        blank=False
+    )
+
     def display_name(self):
         first_name = self.first_name
         last_name = self.last_name
