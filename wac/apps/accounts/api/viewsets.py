@@ -20,14 +20,13 @@ from rest_framework import permissions
 
 class UpdatePermissions(permissions.BasePermission):
     def has_permission(self, request, view):
-        print('VIEW ACTION')
-        print(view.action)
         submitted_id = request.data.get('id')
         if view.action == 'update' and submitted_id != request.user.id:
             return False
         if view.action == 'destroy' and submitted_id != request.user.id:
             return False
         return True
+
 
 class ModifyFeaturedTalkPermissions(permissions.BasePermission):
     def has_permission(self, request, view):
@@ -37,6 +36,12 @@ class ModifyFeaturedTalkPermissions(permissions.BasePermission):
         if view.action == 'update' and profile_id != request.user.id:
             return False
         if view.action == 'destroy' and profile_id != request.user.id:
+            return False
+        return True
+
+class UpdateProfilePermissions(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if obj.published == False and obj.user.pk != request.user.id:
             return False
         return True
 
@@ -57,10 +62,10 @@ class UserViewSet(viewsets.ModelViewSet):
 class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
     http_method_names = ['get', 'post', 'put']
-    permission_classes = (UpdatePermissions,)
+    permission_classes = (UpdatePermissions, UpdateProfilePermissions,)
 
     def get_queryset(self):
-        queryset = Profile.objects.filter(status=Profile.APPROVED).order_by("-pk")
+        queryset = Profile.objects.filter(status=Profile.APPROVED, published=True).order_by("-pk")
 
         location = self.request.query_params.get('location', None)
         if location is not None:
