@@ -46,9 +46,6 @@ class ProfileSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         topics_data = validated_data.pop('topics')
         instance = super(ProfileSerializer, self).update(instance, validated_data)
-        print('validated data')
-        print(validated_data)
-
 
         instance.topics.clear()
 

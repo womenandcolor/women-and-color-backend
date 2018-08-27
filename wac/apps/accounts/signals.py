@@ -22,15 +22,6 @@ def update_email_subscriptions(sender, instance, **kwargs):
   client = MailChimp(mc_api=settings.MAILCHIMP_API_KEY)
   email_hash = hashlib.md5(instance.user.email.encode('utf-8')).hexdigest()
 
-  print('email hash!')
-  print(email_hash)
-
-  print('instance.newsletter_mailing_list')
-  print(instance.newsletter_mailing_list)
-
-  print('instance.speaker_mailing_list')
-  print(instance.speaker_mailing_list)
-
   if instance.newsletter_mailing_list == True:
     client.lists.members.create_or_update(
       list_id=settings.NEWSLETTER_LIST_ID,
@@ -69,9 +60,9 @@ def update_email_subscriptions(sender, instance, **kwargs):
           'LNAME': instance.last_name,
           'IWOMAN': "Yes" if instance.woman else "No",
           'IPOC': "Yes" if instance.poc else "No",
-          'ITITLE': instance.position,
-          'ICOMPANY': instance.organization,
-          'ICITY': instance.location.city,
+          'ITITLE': instance.position if instance.position else "undisclosed position",
+          'ICOMPANY': instance.organization if instance.organization else "undisclosed company",
+          'ICITY': instance.location.city if instance.location else "undisclosed location",
         },
       }
     )
