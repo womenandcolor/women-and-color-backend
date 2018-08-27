@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'corsheaders',
+    'mailchimp3',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
@@ -247,6 +248,12 @@ EMAIL_HOST_PASSWORD = os.getenv('SENDGRID_PASSWORD')
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'hello@womenandcolor.com'
 MESSAGE_EMAIL = 'messages@womenandcolor.com'
+
+# Mailchimp
+
+MAILCHIMP_API_KEY = "e3488188489593c048502624a3088600-us15"
+NEWSLETTER_LIST_ID = "ee527cb413"
+SPEAKER_LIST_ID = "53541375c3"
 
 # AWS
 
