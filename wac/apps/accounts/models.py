@@ -142,6 +142,17 @@ class Profile(models.Model):
         blank=False
     )
 
+    speaker_mailing_list = models.BooleanField(
+        null=False,
+        blank=False
+    )
+
+
+    newsletter_mailing_list = models.BooleanField(
+        null=False,
+        blank=False
+    )
+
     def display_name(self):
         first_name = self.first_name
         last_name = self.last_name
