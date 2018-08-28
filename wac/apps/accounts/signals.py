@@ -19,7 +19,7 @@ def create_profile(sender, **kwargs):
 
 @receiver(post_save, sender=Profile)
 def update_email_subscriptions(sender, instance, **kwargs):
-  client = MailChimp(mc_api=settings.MAILCHIMP_API_KEY)
+  client = MailChimp(mc_api=settings.MAILCHIMP_API_KEY, timeout=10.0)
   email_hash = hashlib.md5(instance.user.email.encode('utf-8')).hexdigest()
 
   if instance.newsletter_mailing_list == True:
