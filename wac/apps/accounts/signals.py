@@ -33,6 +33,7 @@ def update_email_subscriptions(sender, instance, **kwargs):
         'merge_fields': {
           'FNAME': instance.first_name,
           'LNAME': instance.last_name,
+          'ICITY': instance.location.city if instance.location else "undisclosed location",
         },
       }
     )
