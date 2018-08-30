@@ -61,7 +61,7 @@ class Command(BaseCommand):
         parser.add_argument('check_list_id')
 
     def handle(self, *args, **options):
-        profiles = Profile.objects.all()
+        profiles = Profile.objects.filter(status=Profile.APPROVED)
         target_list_id = options['target_list_id']
         check_list_id = options['check_list_id']
         client = MailChimp(mc_api=settings.MAILCHIMP_API_KEY, timeout=10.0)
