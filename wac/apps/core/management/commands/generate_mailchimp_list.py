@@ -57,6 +57,10 @@ class Command(BaseCommand):
             self.stdout.write(self.style.WARNING('Invalid data: {}'.format(data)))
             self.stdout.write(self.style.WARNING(e))
 
+        except ValueError as e:
+            self.stdout.write(self.style.WARNING('Unable to add subscriber with email {}'.format(profile.user.email)))
+            self.stdout.write(self.style.WARNING(e))
+
     # def add_arguments(self, parser):
         # parser.add_argument('target_list_id')
         # parser.add_argument('check_list_id')
