@@ -56,15 +56,18 @@ class Command(BaseCommand):
             self.stdout.write(self.style.WARNING('Unable to add subscriber with email {}'.format(profile.user.email)))
             self.stdout.write(self.style.WARNING('Invalid data: {}'.format(data)))
 
-    def add_arguments(self, parser):
-        parser.add_argument('target_list_id')
+    # def add_arguments(self, parser):
+        # parser.add_argument('target_list_id')
         # parser.add_argument('check_list_id')
 
     def handle(self, *args, **options):
         profiles = Profile.objects.filter(status=Profile.APPROVED)
-        target_list_id = options['target_list_id']
-        check_list_id = options['check_list_id']
+        target_list_id = settings.SPEAKER_LIST_ID
+        # category_id = settings.CONTACT_PREF_CATEGORY_ID
+        # check_list_id = options['check_list_id']
         client = MailChimp(mc_api=settings.MAILCHIMP_API_KEY, timeout=10.0)
+        # interests = client.lists.interest_categories.interests.all(list_id=target_list_id, category_id=category_id)
+        # print(interests)
 
         for profile in profiles:
             self.subscribe_to_list(profile, target_list_id, client)

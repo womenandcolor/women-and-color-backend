@@ -29,6 +29,12 @@ class Profile(models.Model):
         (REJECTED, REJECTED)
     )
 
+    # SPEAKING_OPPORTUNITIES = "912d355156"
+    # JOB_OPPORTUNITIES = "842228624b"
+    # PROMOS_GIVEAWAYS = "9b23621eec"
+    # UPCOMING_INITIATIVES = "6b42ee06ab"
+    # MONTHLY_NEWSLETTER = "4fc0763b06"
+
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
