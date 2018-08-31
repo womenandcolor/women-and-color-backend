@@ -58,7 +58,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('target_list_id')
-        parser.add_argument('check_list_id')
+        # parser.add_argument('check_list_id')
 
     def handle(self, *args, **options):
         profiles = Profile.objects.filter(status=Profile.APPROVED)
@@ -67,10 +67,7 @@ class Command(BaseCommand):
         client = MailChimp(mc_api=settings.MAILCHIMP_API_KEY, timeout=10.0)
 
         for profile in profiles:
-            try:
-                self.check_if_subscribed(profile, check_list_id, client)
-            except MailChimpError as e:
-                self.subscribe_to_list(profile, target_list_id, client)
+            self.subscribe_to_list(profile, target_list_id, client)
 
 
 
