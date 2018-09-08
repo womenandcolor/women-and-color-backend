@@ -5,8 +5,8 @@ from django.conf import settings
 
 # App
 from wac.apps.accounts.models import (Profile, ImageUpload, FeaturedTalk)
-from wac.apps.core.models import Topic
-from wac.apps.core.api.serializers import TopicSerializer
+from wac.apps.core.models import Topic, SubscriptionGroup
+from wac.apps.core.api.serializers import TopicSerializer, SubscriptionGroupSerializer
 
 # Rest framework
 from rest_framework import serializers
@@ -27,6 +27,7 @@ class FeaturedTalkSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     topics = TopicSerializer(many=True, read_only=False)
+    subscription_groups = SubscriptionGroupSerializer(many=True, read_only=False)
     featured_talks = FeaturedTalkSerializer(many=True, read_only=True)
 
     class Meta:
@@ -45,9 +46,11 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         topics_data = validated_data.pop('topics')
+        subscription_group_data = validated_data.pop('subscription_groups')
         instance = super(ProfileSerializer, self).update(instance, validated_data)
 
         instance.topics.clear()
+        instance.subscription_groups.clear()
 
         for topic_data in topics_data:
             topic_qs = Topic.objects.filter(topic__iexact=topic_data['topic'])
@@ -56,6 +59,14 @@ class ProfileSerializer(serializers.ModelSerializer):
                 topic = topic_qs.first()
 
             instance.topics.add(topic)
+
+        for group in subscription_group_data:
+            group_qs = SubscriptionGroup.objects.filter(group_id__iexact=group['group_id'])
+
+            if group_qs.exists():
+                group_obj = group_qs.first()
+
+            instance.subscription_groups.add(group_obj)
 
         return instance
 

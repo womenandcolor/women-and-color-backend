@@ -46,3 +46,19 @@ class Topic(models.Model):
 
     def __unicode__(self):
         return self.topic
+
+
+class SubscriptionGroup(models.Model):
+    group_id = models.CharField(
+        max_length=250
+    )
+
+    list_id = models.CharField(
+        max_length=250
+    )
+
+    label = models.CharField(
+        max_length=250
+    )
+
+

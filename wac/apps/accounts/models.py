@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 # App
-from wac.apps.core.models import Location, Topic
+from wac.apps.core.models import Location, Topic, SubscriptionGroup
 from wac.storage_backends import MediaStorage
 from django_resized import ResizedImageField
 
@@ -29,12 +29,6 @@ class Profile(models.Model):
         (REJECTED, REJECTED)
     )
 
-    # SPEAKING_OPPORTUNITIES = "912d355156"
-    # JOB_OPPORTUNITIES = "842228624b"
-    # PROMOS_GIVEAWAYS = "9b23621eec"
-    # UPCOMING_INITIATIVES = "6b42ee06ab"
-    # MONTHLY_NEWSLETTER = "4fc0763b06"
-
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
@@ -55,6 +49,10 @@ class Profile(models.Model):
 
     topics = models.ManyToManyField(
         Topic
+    )
+
+    subscription_groups = models.ManyToManyField(
+        SubscriptionGroup
     )
 
     image = models.CharField(
@@ -148,17 +146,6 @@ class Profile(models.Model):
         blank=False
     )
 
-    speaker_mailing_list = models.NullBooleanField(
-        null=True,
-        blank=True
-    )
-
-
-    newsletter_mailing_list = models.NullBooleanField(
-        null=True,
-        blank=True
-    )
-
     def display_name(self):
         first_name = self.first_name
         last_name = self.last_name
@@ -199,6 +186,22 @@ class ProfileTopic(models.Model):
 
     topic = models.ForeignKey(
         Location,
+        on_delete=models.CASCADE
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+
+class ProfileSubscriptionGroup(models.Model):
+    profile = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE
+    )
+
+    subscription_group = models.ForeignKey(
+        SubscriptionGroup,
         on_delete=models.CASCADE
     )
 
@@ -263,5 +266,3 @@ class FeaturedTalk(models.Model):
             talk_title=self.talk_title,
             event_name=self.event_name
         )
-
-

@@ -1,6 +1,6 @@
 # App
-from wac.apps.core.api.serializers import LocationSerializer, TopicSerializer
-from wac.apps.core.models import Location, Topic
+from wac.apps.core.api.serializers import LocationSerializer, TopicSerializer, SubscriptionGroupSerializer
+from wac.apps.core.models import Location, Topic, SubscriptionGroup
 from wac.apps.accounts.models import Profile
 
 # Rest Framework
@@ -35,3 +35,7 @@ class TopicViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(topic__icontains=q)
 
         return queryset
+
+class SubscriptionGroupViewSet(viewsets.ModelViewSet):
+    queryset = SubscriptionGroup.objects.all()
+    serializer_class = SubscriptionGroupSerializer

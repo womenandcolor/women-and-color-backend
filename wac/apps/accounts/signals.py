@@ -6,6 +6,7 @@ from django.conf import settings
 
 # App
 from wac.apps.accounts.models import Profile
+from wac.apps.core.models import SubscriptionGroup
 from mailchimp3 import MailChimp
 
 import hashlib
@@ -18,37 +19,15 @@ def create_profile(sender, **kwargs):
 
 
 @receiver(post_save, sender=Profile)
-def update_email_subscriptions(sender, instance, **kwargs):
-  client = MailChimp(mc_api=settings.MAILCHIMP_API_KEY, timeout=10.0)
-  email_hash = hashlib.md5(instance.user.email.encode('utf-8')).hexdigest()
+def update_email_subscriptions(sender, instance, created, **kwargs):
+  if not created:
+    client = MailChimp(mc_api=settings.MAILCHIMP_API_KEY, timeout=10.0)
+    email_hash = hashlib.md5(instance.user.email.encode('utf-8')).hexdigest()
+    interests = {}
+    subscription_groups = SubscriptionGroup.objects.all();
+    for group in subscription_groups:
+      interests[group.group_id] = instance.subscription_groups.filter(group_id__iexact=group.group_id).exists()
 
-  if instance.newsletter_mailing_list == True:
-    client.lists.members.create_or_update(
-      list_id=settings.NEWSLETTER_LIST_ID,
-      subscriber_hash=email_hash,
-      data={
-        'email_address': instance.user.email,
-        'status': 'subscribed',
-        'status_if_new': 'pending',
-        'merge_fields': {
-          'FNAME': instance.first_name,
-          'LNAME': instance.last_name,
-          'ICITY': instance.location.city if instance.location else "undisclosed location",
-        },
-      }
-    )
-
-  if instance.newsletter_mailing_list == False:
-    client.lists.members.update(
-      list_id=settings.NEWSLETTER_LIST_ID,
-      subscriber_hash=email_hash,
-      data={
-        'email_address': instance.user.email,
-        'status': 'unsubscribed'
-      }
-    )
-
-  if instance.speaker_mailing_list == True:
     client.lists.members.create_or_update(
       list_id=settings.SPEAKER_LIST_ID,
       subscriber_hash=email_hash,
@@ -65,15 +44,6 @@ def update_email_subscriptions(sender, instance, **kwargs):
           'ICOMPANY': instance.organization if instance.organization else "undisclosed company",
           'ICITY': instance.location.city if instance.location else "undisclosed location",
         },
-      }
-    )
-
-  if instance.speaker_mailing_list == False:
-    client.lists.members.update(
-      list_id=settings.SPEAKER_LIST_ID,
-      subscriber_hash=email_hash,
-      data={
-        'email_address': instance.user.email,
-        'status': 'unsubscribed'
+        'interests': interests
       }
     )
