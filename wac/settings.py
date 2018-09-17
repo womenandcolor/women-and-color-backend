@@ -218,7 +218,9 @@ CORS_ORIGIN_WHITELIST = (
     'womenandcolor-staging.herokuapp.com',
     'womenandcolor-production.herokuapp.com',
     'localhost:8080',
-    '127.0.0.1:8080'
+    '127.0.0.1:8080',
+    'localhost:9000',
+    'women-and-color-static.herokuapp.com',
 )
 
 CSRF_TRUSTED_ORIGINS = (
