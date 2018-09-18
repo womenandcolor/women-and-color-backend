@@ -27,7 +27,7 @@ BACKEND_BASE_URL = os.getenv('BACKEND_BASE_URL')
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'gajid00k$$l7hzp$=3n19f$8nkckx&y)r2v+h3!e%4!6o*^otl'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', False) == 'true'
@@ -253,7 +253,7 @@ MESSAGE_EMAIL = 'messages@womenandcolor.com'
 
 # Mailchimp
 
-MAILCHIMP_API_KEY = "e3488188489593c048502624a3088600-us15"
+MAILCHIMP_API_KEY = os.environ.get('MAILCHIMP_API_KEY', '')
 SPEAKER_LIST_ID = "c420f5416a"
 
 # AWS
