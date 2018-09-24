@@ -1,5 +1,5 @@
 # Django
-from django.dispatch import receiver
+from django.dispatch import receiver, Signal
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.conf import settings
@@ -10,6 +10,9 @@ from wac.apps.core.models import SubscriptionGroup
 from mailchimp3 import MailChimp
 
 import hashlib
+import heroku3
+
+speaker_approved = Signal(providing_args=["profile"])
 
 
 @receiver(post_save, sender=User)
@@ -22,7 +25,7 @@ def create_profile(sender, **kwargs):
 def update_email_subscriptions(sender, instance, created, **kwargs):
   if not created:
     client = MailChimp(mc_api=settings.MAILCHIMP_API_KEY, timeout=10.0)
-    email_hash = hashlib.md5(instance.user.email.encode('utf-8')).hexdigest()
+    email_hash = hashlib.md5(instance.user.email.lower().encode('utf-8')).hexdigest()
     interests = {}
     subscription_groups = SubscriptionGroup.objects.all();
     for group in subscription_groups:
@@ -47,3 +50,10 @@ def update_email_subscriptions(sender, instance, created, **kwargs):
         'interests': interests
       }
     )
+
+@receiver(speaker_approved, sender=Profile)
+def trigger_frontend_build(sender, **kwargs):
+  heroku_conn = heroku3.from_key(settings.HEROKU_PLATFORM_API_KEY);
+  app = heroku_conn.app('women-and-color-static')
+
+  app.run_command_detached('gatsby build')

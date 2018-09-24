@@ -276,6 +276,11 @@ AWS_STATIC_LOCATION = 'static'
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_STATIC_LOCATION)
 STATICFILES_STORAGE = 'wac.storage_backends.StaticStorage'
 
+# Heroku API
+
+## access to women-and-color-static app
+HEROKU_PLATFORM_API_KEY = os.environ.get('HEROKU_PLATFORM_API_KEY')
+
 # Logging
 
 LOGGING = {

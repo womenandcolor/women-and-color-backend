@@ -52,7 +52,8 @@ class Profile(models.Model):
     )
 
     subscription_groups = models.ManyToManyField(
-        SubscriptionGroup
+        SubscriptionGroup,
+        blank=True
     )
 
     image = models.CharField(
