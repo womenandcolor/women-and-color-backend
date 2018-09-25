@@ -281,6 +281,10 @@ STATICFILES_STORAGE = 'wac.storage_backends.StaticStorage'
 ## access to women-and-color-static app
 HEROKU_PLATFORM_API_KEY = os.environ.get('HEROKU_PLATFORM_API_KEY')
 
+## configuration for triggering front-end build
+FRONTEND_APP_TARBALL = os.environ.get('FRONTEND_APP_TARBALL')
+FRONTEND_APP_NAME = os.environ.get('FRONTEND_APP_NAME')
+
 # Logging
 
 LOGGING = {

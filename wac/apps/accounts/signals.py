@@ -10,7 +10,7 @@ from wac.apps.core.models import SubscriptionGroup
 from mailchimp3 import MailChimp
 
 import hashlib
-import heroku3
+import requests
 
 speaker_approved = Signal(providing_args=["profile"])
 
@@ -53,7 +53,19 @@ def update_email_subscriptions(sender, instance, created, **kwargs):
 
 @receiver(speaker_approved, sender=Profile)
 def trigger_frontend_build(sender, **kwargs):
-  heroku_conn = heroku3.from_key(settings.HEROKU_PLATFORM_API_KEY);
-  app = heroku_conn.app('women-and-color-static')
+  if settings.DEBUG == False:
+    url = "https://api.heroku.com/apps/{}/builds".format(settings.FRONTEND_APP_NAME)
+    data = '{"source_blob":{"url":"%s"}}' % settings.FRONTEND_APP_TARBALL # format throws a KeyError
+    print(data)
+    response = requests.post(
+      url,
+      data=data,
+      headers={
+        'Accept': 'application/vnd.heroku+json; version=3',
+        "Content-Type": "application/json",
+        "Authorization": "Bearer {}".format(settings.HEROKU_PLATFORM_API_KEY)
+      },
+    )
 
-  app.run_command_detached('gatsby build')
+    print(response.text)
+
