@@ -12,9 +12,10 @@ We're building a RESTful API for the Women and Color project, which is a communi
 - Install Docker and docker-compose
 - Run `docker-compose up`, sometimes the web app comes up before postgres configuration has ended which can cause a failure, if this happens, run `docker-compose up` again.
 - Run `docker ps` to get the container ID for the app container (should be the has associated with womenandcolorbackend_app_)
-- Open a bash session in the app container: `docker exec -it <container-id> bash`
+- Open a shell session in the app container: `docker exec -it <container-id> sh`
 - Run migrations: `python manage.py migrate`
-- Seed the database: `python manage.py init_project`
+- Initialize the project: `python manage.py init_project`
+- Seed the database with a fake profile: `python manage.py seed_database`
 - The server should now be running on `localhost:8000`
 
 ### Start the frontend
