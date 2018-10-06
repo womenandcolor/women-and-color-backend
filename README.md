@@ -15,7 +15,7 @@ We're building a RESTful API for the Women and Color project, which is a communi
 - Open a shell session in the app container: `docker exec -it <container-id> sh`
 - Run migrations: `python manage.py migrate`
 - Initialize the project: `python manage.py init_project`
-- Seed the database with a fake profile: `python manage.py seed_database`
+- Seed the database with fake profiles: `python manage.py seed_database`
 - The server should now be running on `localhost:8000`
 
 ### Start the frontend
@@ -77,4 +77,4 @@ There are currently four models: User, Profile, Topic, and City.
 - The User, City, and Topic models are all associated with the Profile.
 
 <!-- Links -->
-   [code-frontend]: https://github.com/CivicTechTO/women-and-color-frontend
+   [code-frontend]: https://github.com/CivicTechTO/women-and-color-static
