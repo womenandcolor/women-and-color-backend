@@ -15,7 +15,7 @@ from faker.providers import company
 import uuid
 
 class Command(BaseCommand):
-    def create_user(self):
+    def create_user(self, woman, poc, job_title, city, topic):
         fake = Factory.create()
         fake.add_provider(internet)
         fake.add_provider(company)
@@ -31,18 +31,18 @@ class Command(BaseCommand):
 
         user.profile.first_name = name.split(' ')[0]
         user.profile.last_name = name.split(' ')[1]
-        user.profile.position = 'Senior Developer'
+        user.profile.position = job_title
         user.profile.organization = fake.company()
 
-        user.profile.poc = True
-        user.profile.woman = True
+        user.profile.poc = poc
+        user.profile.woman = woman
 
         # add location to profile
-        location = Location.objects.get(city='Toronto')
+        location = Location.objects.get(city=city)
         user.profile.location = location
 
         # add topics to profile
-        topic, _created = Topic.objects.get_or_create(topic='React')
+        topic, _created = Topic.objects.get_or_create(topic=topic)
         user.profile.topics.add(topic)
 
         # set profile status as approved
@@ -53,6 +53,8 @@ class Command(BaseCommand):
 
 
     def handle(self, *args, **options):
-        self.create_user()
+        self.create_user(True, True, 'Senior Developer', 'Toronto', 'React')
+        self.create_user(False, True, 'CEO', 'Waterloo', 'Entrepreneurship')
+        self.create_user(True, False, 'Technical Team Lead', 'Vancouver', 'Python')
 
-        self.stdout.write(self.style.SUCCESS('Created a fake profile for you!'))
+        self.stdout.write(self.style.SUCCESS('Created some fake profiles for you!'))
