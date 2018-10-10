@@ -22,7 +22,7 @@ def create_profile(sender, **kwargs):
 def update_email_subscriptions(sender, instance, created, **kwargs):
   if not created:
     client = MailChimp(mc_api=settings.MAILCHIMP_API_KEY, timeout=10.0)
-    email_hash = hashlib.md5(instance.user.email.encode('utf-8')).hexdigest()
+    email_hash = hashlib.md5(instance.user.email.lower().encode('utf-8')).hexdigest()
     interests = {}
     subscription_groups = SubscriptionGroup.objects.all();
     for group in subscription_groups:
