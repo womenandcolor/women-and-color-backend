@@ -1,5 +1,5 @@
 # Django
-from django.dispatch import receiver
+from django.dispatch import receiver, Signal
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.conf import settings
@@ -10,6 +10,9 @@ from wac.apps.core.models import SubscriptionGroup
 from mailchimp3 import MailChimp
 
 import hashlib
+import requests
+
+speaker_approved = Signal(providing_args=["profile"])
 
 
 @receiver(post_save, sender=User)
@@ -47,3 +50,22 @@ def update_email_subscriptions(sender, instance, created, **kwargs):
         'interests': interests
       }
     )
+
+@receiver(speaker_approved, sender=Profile)
+def trigger_frontend_build(sender, **kwargs):
+  if settings.DEBUG == False:
+    url = "https://api.heroku.com/apps/{}/builds".format(settings.FRONTEND_APP_NAME)
+    data = '{"source_blob":{"url":"%s"}}' % settings.FRONTEND_APP_TARBALL # format throws a KeyError
+    print(data)
+    response = requests.post(
+      url,
+      data=data,
+      headers={
+        'Accept': 'application/vnd.heroku+json; version=3',
+        "Content-Type": "application/json",
+        "Authorization": "Bearer {}".format(settings.HEROKU_PLATFORM_API_KEY)
+      },
+    )
+
+    print(response.text)
+

@@ -22,7 +22,7 @@ class Command(BaseCommand):
         if settings.DEBUG:
             request.META['HTTP_HOST'] = 'localhost:8000'
         else:
-            request.META['HTTP_HOST'] = settings.BACKEND_BASE_URL
+            request.META['HTTP_HOST'] = 'www.womenandcolor.com'
 
         request.POST = {
             'email': user.email,

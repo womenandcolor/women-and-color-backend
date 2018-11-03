@@ -4,6 +4,7 @@ from django.contrib import admin
 from wac.apps.accounts.models import (
     Profile
 )
+from wac.apps.accounts.signals import speaker_approved
 
 
 # Register your models here.
@@ -17,4 +18,10 @@ class ProfileAdmin(admin.ModelAdmin):
         'created_at',
         'updated_at'
     ]
+
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+
+        if 'status' in form.changed_data and obj.status == Profile.APPROVED:
+            speaker_approved.send(sender=Profile, profile=obj)
 

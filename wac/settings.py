@@ -19,15 +19,15 @@ import datetime
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-FRONTEND_BASE_URL = os.getenv('FRONTEND_BASE_URL')
-BACKEND_BASE_URL = os.getenv('BACKEND_BASE_URL')
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
+# to generate a secret key, do:
+# import random
+# ''.join(random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(50))
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY', '')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', False) == 'true'
@@ -101,8 +101,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'wac.context_processors.global_settings',
+                'django.contrib.messages.context_processors.messages'
             ],
         },
     },
@@ -221,6 +220,7 @@ CORS_ORIGIN_WHITELIST = (
     '127.0.0.1:8080',
     'localhost:9000',
     'women-and-color-static.herokuapp.com',
+    'job-board-bridge.herokuapp.com',
 )
 
 CSRF_TRUSTED_ORIGINS = (
@@ -275,6 +275,15 @@ DEFAULT_FILE_STORAGE = 'wac.storage_backends.MediaStorage'
 AWS_STATIC_LOCATION = 'static'
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_STATIC_LOCATION)
 STATICFILES_STORAGE = 'wac.storage_backends.StaticStorage'
+
+# Heroku API
+
+## access to women-and-color-static app
+HEROKU_PLATFORM_API_KEY = os.environ.get('HEROKU_PLATFORM_API_KEY')
+
+## configuration for triggering front-end build
+FRONTEND_APP_TARBALL = os.environ.get('FRONTEND_APP_TARBALL')
+FRONTEND_APP_NAME = os.environ.get('FRONTEND_APP_NAME')
 
 # Logging
 
