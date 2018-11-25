@@ -83,6 +83,11 @@ class Profile(models.Model):
         blank=True
     )
 
+    lgbtqa = models.NullBooleanField(
+        null=True,
+        blank=True
+    )
+
     pronouns = models.CharField(
         max_length=10,
         choices=PRONOUNS_CHOICE,
