@@ -43,6 +43,7 @@ def update_email_subscriptions(sender, instance, created, **kwargs):
           'LNAME': instance.last_name,
           'IWOMAN': "Yes" if instance.woman else "No",
           'IPOC': "Yes" if instance.poc else "No",
+          'ILGBTQA': "Yes" if instance.lgbtqa else "No",
           'ITITLE': instance.position if instance.position else "undisclosed position",
           'ICOMPANY': instance.organization if instance.organization else "undisclosed company",
           'ICITY': instance.location.city if instance.location else "undisclosed location",
