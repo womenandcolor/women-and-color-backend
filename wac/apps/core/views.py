@@ -6,6 +6,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 
 from wac.apps.accounts.models import Profile
 from wac.apps.core.models import Topic, Location
+from wac.apps.contact_speaker.models import ContactForm
 
 from collections import Counter
 from dateutil.relativedelta import relativedelta
@@ -19,7 +20,7 @@ def json_response(objects):
 
 class StatsView(View):
     def get(self, request):
-        data = { "cities": {}, "registrations": {} }
+        data = { "cities": {}, "registrations": {}, "messages_sent": {} }
 
         speaker_count = Profile.objects.filter(status=Profile.APPROVED).count()
         topics = Profile.objects.filter(status=Profile.APPROVED).values_list("topics", flat=True)
@@ -36,8 +37,8 @@ class StatsView(View):
             location_count = Profile.objects.filter(status=Profile.APPROVED, location=location).count()
             data["cities"][location.city] = location_count
 
-        start_date = datetime.datetime(2018, 1, 1)
-        end_date = datetime.datetime.now()
+        start_date = datetime.datetime(2018, 1, 1, 0, 0, 0, 0, datetime.timezone.utc)
+        end_date = datetime.datetime.now(datetime.timezone.utc)
 
         start_window = start_date
         end_window = start_window + relativedelta(months=+1)
@@ -45,6 +46,9 @@ class StatsView(View):
         while end_window < end_date:
             registrations_count = Profile.objects.filter(status=Profile.APPROVED, created_at__gt=start_window, created_at__lte=end_window).count()
             data["registrations"][start_window.strftime('%B %Y')] = registrations_count
+
+            messages_count = ContactForm.objects.filter(created_at__gt=start_window, created_at__lte=end_window).count()
+            data["messages_sent"][start_window.strftime('%B %Y')] = messages_count
 
             start_window = end_window
             end_window = start_window + relativedelta(months=+1)
