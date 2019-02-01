@@ -217,10 +217,12 @@ CORS_ORIGIN_WHITELIST = (
     'womenandcolor-staging.herokuapp.com',
     'womenandcolor-production.herokuapp.com',
     'localhost:8080',
+    'localhost:8085',
     '127.0.0.1:8080',
     'localhost:9000',
     'women-and-color-staging.herokuapp.com',
     'women-and-color-production.herokuapp.com',
+    'd1e6m7xo5dy0dq.cloudfront.net'
 )
 
 CSRF_TRUSTED_ORIGINS = (
@@ -232,7 +234,8 @@ CSRF_TRUSTED_ORIGINS = (
     'womenandcolor-api-staging.herokuapp.com',
     'womenandcolor-api-production.herokuapp.com',
     'localhost:8080',
-    'localhost:8000'
+    'localhost:8000',
+    'd1e6m7xo5dy0dq.cloudfront.net'
 )
 
 # Email
