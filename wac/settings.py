@@ -222,9 +222,9 @@ CORS_ORIGIN_WHITELIST = (
     'localhost:9000',
     'women-and-color-staging.herokuapp.com',
     'women-and-color-production.herokuapp.com',
-    'https://staging.modernleaders.com',
-    'https://prod.modernleaders.com',
-    'https://www.prod.modernleaders.com'
+    'staging.modernleaders.com',
+    'modernleaders.com',
+    'www.modernleaders.com'
 )
 
 CSRF_TRUSTED_ORIGINS = (
@@ -237,9 +237,9 @@ CSRF_TRUSTED_ORIGINS = (
     'womenandcolor-api-production.herokuapp.com',
     'localhost:8080',
     'localhost:8000',
-    'https://staging.modernleaders.com',
-    'https://prod.modernleaders.com',
-    'https://www.prod.modernleaders.com'
+    'staging.modernleaders.com',
+    'modernleaders.com',
+    'www.modernleaders.com'
 )
 
 # Email
