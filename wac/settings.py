@@ -258,10 +258,12 @@ CSRF_TRUSTED_ORIGINS = (
 if DEBUG == True:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
+    #  EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Sendgrid
 
+SENDGRID_API_KEY = os.environ["SENDGRID_API_KEY"]
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.getenv('SENDGRID_ACCOUNT')
