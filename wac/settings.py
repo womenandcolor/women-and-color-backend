@@ -85,6 +85,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware'
 ]
 
 ROOT_URLCONF = 'wac.urls'
@@ -164,6 +165,17 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+# ====================== ROLLBAR ====================== #
+ROLLBAR = {
+    'access_token': '485f0f5f09334d179c696ac338009215',
+    'environment': 'development' if DEBUG else 'production',
+    'root': BASE_DIR,
+}
+import rollbar
+rollbar.init(**ROLLBAR)
+# ============================================================ #
 
 
 # ====================== REST FRAMEWORK ====================== #
