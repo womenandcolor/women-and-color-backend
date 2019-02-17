@@ -108,7 +108,7 @@ class Profile(models.Model):
     )
 
     description = models.CharField(
-        max_length=1024,
+        max_length=2048,
         null=True,
         blank=True
     )
