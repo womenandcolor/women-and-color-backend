@@ -85,6 +85,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware'
 ]
 
 ROOT_URLCONF = 'wac.urls'
@@ -166,6 +167,17 @@ USE_L10N = True
 USE_TZ = True
 
 
+# ====================== ROLLBAR ====================== #
+ROLLBAR = {
+    'access_token': '485f0f5f09334d179c696ac338009215',
+    'environment': 'development' if DEBUG else 'production',
+    'root': BASE_DIR,
+}
+import rollbar
+rollbar.init(**ROLLBAR)
+# ============================================================ #
+
+
 # ====================== REST FRAMEWORK ====================== #
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -217,10 +229,14 @@ CORS_ORIGIN_WHITELIST = (
     'womenandcolor-staging.herokuapp.com',
     'womenandcolor-production.herokuapp.com',
     'localhost:8080',
+    'localhost:8085',
     '127.0.0.1:8080',
     'localhost:9000',
     'women-and-color-staging.herokuapp.com',
     'women-and-color-production.herokuapp.com',
+    'staging.modernleaders.com',
+    'modernleaders.com',
+    'www.modernleaders.com'
 )
 
 CSRF_TRUSTED_ORIGINS = (
@@ -232,17 +248,22 @@ CSRF_TRUSTED_ORIGINS = (
     'womenandcolor-api-staging.herokuapp.com',
     'womenandcolor-api-production.herokuapp.com',
     'localhost:8080',
-    'localhost:8000'
+    'localhost:8000',
+    'staging.modernleaders.com',
+    'modernleaders.com',
+    'www.modernleaders.com'
 )
 
 # Email
 if DEBUG == True:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 else:
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
+    #  EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Sendgrid
 
+SENDGRID_API_KEY = os.environ["SENDGRID_API_KEY"]
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.getenv('SENDGRID_ACCOUNT')
