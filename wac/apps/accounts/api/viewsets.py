@@ -20,7 +20,11 @@ from rest_framework import permissions
 
 class UpdatePermissions(permissions.BasePermission):
     def has_permission(self, request, view):
+        user_id = request.data.get("user")
         submitted_id = request.data.get("id")
+
+        if submitted_id != user_id:
+            return False
         if view.action == "update" and submitted_id != request.user.id:
             return False
         if view.action == "destroy" and submitted_id != request.user.id:
