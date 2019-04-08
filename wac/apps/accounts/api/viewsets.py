@@ -90,11 +90,10 @@ class ProfileViewSet(viewsets.ModelViewSet):
                 search=SearchVector(
                     "first_name",
                     "last_name",
-                    #  "description",
                     "organization",
                     "topics__topic",
                 )
-            ).filter(search__contains=query)
+            ).filter(search=query)
 
         if "offset" in self.request.GET or "limit" in self.request.GET:
             limit = int(self.request.query_params.get("limit", 20))
