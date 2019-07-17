@@ -22,5 +22,7 @@ LOCATIONS = {
         {'city': 'San Francisco', 'province': 'California'},
         {'city': 'Seattle', 'province': 'Washington'},
         {'city': 'Washington', 'province': 'D.C.'},
+        {'city': 'Miami', 'province': 'Florida'},
+        {'city': 'Nashville', 'province': 'Tennessee'},
     ]
 }
